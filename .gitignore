@@ -11,14 +11,14 @@ LudumDare32/sysinfo.txt
  # Visual Studio / MonoDevelop generated #
  # ===================================== #
  [Ee]xported[Oo]bj/
- LudumDare32/*.userprefs
- LudumDare32/*.csproj
- LudumDare32/*.pidb
- LudumDare32/*.suo
- LudumDare32/*.sln*
- LudumDare32/*.user
- LudumDare32/*.unityproj
- LudumDare32/*.booproj
+ LudumDare32/**/*.userprefs
+ LudumDare32/**/*.csproj
+ LudumDare32/**/*.pidb
+ LudumDare32/**/*.suo
+ LudumDare32/**/*.sln*
+ LudumDare32/**/*.user
+ LudumDare32/**/*.unityproj
+ LudumDare32/**/*.booproj
   
   # ============ #
   # OS generated #
