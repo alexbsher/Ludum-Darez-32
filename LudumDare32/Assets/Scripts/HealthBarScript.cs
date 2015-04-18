@@ -9,7 +9,6 @@ public class HealthBarScript : MonoBehaviour
 	public Slider healthBarSlider;
 	public Canvas healthBarCanvas;
 	public Image Fill;
-	public float healthBarLength;
 
 	private Color friendlyColor = new Color(0.0f, 196.0f, 0.0f); 
 	private Color enemyColor = new Color(221.0f, 0.0f, 41.0f); 
@@ -17,28 +16,18 @@ public class HealthBarScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		healthBarLength = Screen.width / 6.0f;
 		healthBarSlider.value = currHealth; 
-		Fill.color = friendlyColor; 
-	}
+		healthBarCanvas.transform.LookAt (Camera.main.transform.localPosition);
 
-	void OnGUI ()
-	{
-		Vector2 targetPos;
-		targetPos = Camera.main.WorldToScreenPoint (transform.position);
-		GUI.Box(new Rect(targetPos.x, Screen.height - targetPos.y, 60, 20), currHealth + "/" + maxHealth);
+		Fill.color = friendlyColor; 
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-//		float healthIncrement = -1.0f;
-//		adjustHealth (healthIncrement); 
-		setSliderValue (); 
 		Vector2 targetPos;
 		targetPos = Camera.main.WorldToScreenPoint (transform.position);
 		healthBarCanvas.transform.LookAt (Camera.main.transform.localPosition);
-//		setHealth (0.0f);
 	}
 
 	public float adjustHealth (float amount)
