@@ -7,7 +7,11 @@ public class CharMovement : MonoBehaviour {
 	Vector3 MovementVector;
 	Vector3 LookVector;
 	float MovementSpeed;
+	float nextFire;
 
+	public float fireRate;
+	public GameObject projectile;
+	public Transform projectileSpawn;
 	public float BaseSpeed = 0.1f;
 	public Transform LookTarget = null;
 	public Transform MyNavGhost = null;
@@ -109,6 +113,11 @@ public class CharMovement : MonoBehaviour {
 		
 		if (Input.GetKeyDown(KeyCode.Space))
 			AddImpact(transform.forward * -1 * 10);
+
+		if (Input.GetKeyDown(KeyCode.RightShift) && Time.time > nextFire) {
+			nextFire = Time.time + fireRate;
+			Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation);
+		}
 	}
 
 	public void AddImpact(Vector3 forceVector)
