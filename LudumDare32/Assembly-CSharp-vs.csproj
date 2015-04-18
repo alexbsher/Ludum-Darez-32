@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\HealthBarScript.cs" />
      <Compile Include="Assets\Scripts\CharMovement.cs" />
      <Compile Include="Assets\Scripts\EmitWhisps.cs" />
      <Compile Include="Assets\Scripts\MoveTo.cs" />
