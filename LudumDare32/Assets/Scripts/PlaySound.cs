@@ -10,7 +10,7 @@ public class PlaySound : MonoBehaviour {
 	public static PlaySound Instance;
 	
 	public enum SoundType {
-		Bonk, HolyWater, Rapture
+		Bonk, HolyWater, Rapture, Hello
 	};
 
 	public enum SourceType {
