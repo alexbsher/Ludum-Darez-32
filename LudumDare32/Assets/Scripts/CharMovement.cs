@@ -6,10 +6,11 @@ public class CharMovement : MonoBehaviour {
 	Vector3 InputVector;
 	Vector3 MovementVector;
 	Vector3 LookVector;
-	float MovementSpeed = 0.1f;
+	float MovementSpeed;
 
-	Transform LookTarget = null;
-
+	public float BaseSpeed = 0.1f;
+	public Transform LookTarget = null;
+	public Transform MyNavGhost = null;
 	public bool IsAI = false;
 
 	float xSeed;
@@ -27,12 +28,18 @@ public class CharMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		LookVector = transform.forward;
+		MovementSpeed = BaseSpeed;
 		xSeed = Random.value * 1000.0f;
 		zSeed = Random.value * 1000.0f;
+
+		if (MyNavGhost != null)
+			MyNavGhost.parent = null;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+	
+		GetComponent<Rigidbody>().velocity = Vector3.zero;
 
 		if (!IsAI)
 			InputVector = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical"));
@@ -46,6 +53,20 @@ public class CharMovement : MonoBehaviour {
 					InputVector.z = Mathf.PerlinNoise(0, Time.time/2 + zSeed) * 2 - 1;
 				break;
 
+				case NPCModes.FOLLOW:
+					if (MyNavGhost != null)
+					{
+						InputVector = (MyNavGhost.position - transform.position);
+						InputVector.y = 0;
+						if (InputVector.magnitude < 1)
+							InputVector = Vector3.zero;
+							
+						//MovementSpeed = BaseSpeed * Mathf.Clamp(InputVector.magnitude, 0, 1);
+							
+						InputVector.Normalize();
+					}
+					break;
+					
 				default:
 
 				break;
@@ -68,7 +89,7 @@ public class CharMovement : MonoBehaviour {
 		//adjustedInputVector = Vector3.Slerp(adjustedInputVector,InputVector,0.1f);
 
 		//------------;
-
+		adjustedInputVector.y = 0;
 		adjustedInputVector.Normalize ();
 
 		MovementVector = Vector3.Lerp(MovementVector, adjustedInputVector, 0.1f);
@@ -81,8 +102,13 @@ public class CharMovement : MonoBehaviour {
 			if (MovementVector.magnitude > 0)
 				LookVector = Vector3.Slerp (LookVector, MovementVector, 0.1f);
 		}
+		
+		LookVector.y = 0;
 
 		transform.localRotation = Quaternion.LookRotation (LookVector, Vector3.up);
+		
+		if (Input.GetKeyDown(KeyCode.Space))
+			AddImpact(transform.forward * -1 * 10);
 	}
 
 	public void AddImpact(Vector3 forceVector)
