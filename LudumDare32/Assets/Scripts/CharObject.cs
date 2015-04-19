@@ -19,6 +19,7 @@ public class CharObject : MonoBehaviour {
 	public GameObject HitParticle = null;
 	public Animator CharAnimator = null;
 	public HealthBarScript MyHealthBar = null;
+	public AudioSource audioSource = new AudioSource();
 	
 	private delegate void DelayFunction();
 	private DelayFunction delayFunction;
@@ -45,7 +46,8 @@ public class CharObject : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+
+		audioSource = new AudioSource ();
 		delayFunction = DoNothing;
 		CharHandler.Instance.RegisterChar(this);
 	
