@@ -5,6 +5,8 @@ public class CameraFollow : MonoBehaviour {
 
 	public Transform FollowObject = null;
 
+	public float cameraDistance = 8;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -12,7 +14,7 @@ public class CameraFollow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position = FollowObject.position + new Vector3(0, 10, -10);
+		transform.position = FollowObject.position + new Vector3(0, cameraDistance, -cameraDistance);
 		transform.eulerAngles = new Vector3(40, 0, 0);
 	}
 }
