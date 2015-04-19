@@ -11,7 +11,8 @@ LudumDare32/sysinfo.txt
  # Visual Studio / MonoDevelop generated #
  # ===================================== #
  [Ee]xported[Oo]bj/
- LudumDare32/**/*.userprefs
+ LudumDare32/Assembly-CSharp-vs.csproj
+ LudumDare32/*.userprefs
  LudumDare32/**/*.csproj
  LudumDare32/**/*.pidb
  LudumDare32/**/*.suo
@@ -19,6 +20,8 @@ LudumDare32/sysinfo.txt
  LudumDare32/**/*.user
  LudumDare32/**/*.unityproj
  LudumDare32/**/*.booproj
+
+ .csproj
   
   # ============ #
   # OS generated #
