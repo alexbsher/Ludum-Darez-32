@@ -20,7 +20,9 @@ public class CharObject : MonoBehaviour {
 	public Animator CharAnimator = null;
 	public HealthBarScript MyHealthBar = null;
 	public AudioSource audioSource = new AudioSource();
-	
+	public GameObject GibletEffect = null;
+	public GameObject MorphEffect = null;
+	public GameObject DemonPrefab = null;
 	private delegate void DelayFunction();
 	private DelayFunction delayFunction;
 	private float DelayTimer;
@@ -113,9 +115,12 @@ public class CharObject : MonoBehaviour {
 			
 			case NPCModes.WANDER:
 			
+				MyNavGhost.transform.position = transform.position;
+			
 				if (GameHandler.Instance.getRapture())
 				{
-					NPCMode = NPCModes.DEMON;
+					NPCMode = NPCModes.DEAD;
+					StartMorph();
 					return;
 				}
 			
@@ -137,7 +142,8 @@ public class CharObject : MonoBehaviour {
 			
 				if (GameHandler.Instance.getRapture())
 				{
-					NPCMode = NPCModes.DEMON;
+					NPCMode = NPCModes.DEAD;
+					StartMorph();
 					return;
 				}
 				
@@ -273,6 +279,7 @@ public class CharObject : MonoBehaviour {
 								playerPos = c.transform.position;
 						}
 						
+						if (playerPos != null)
 						if (target == null || (target.transform.position - (Vector3)playerPos).magnitude > 15)
 						{
 							NPCMode = NPCModes.FOLLOW;
@@ -380,18 +387,45 @@ public class CharObject : MonoBehaviour {
 		if (MyHealthBar.currHealth <= 0)
 		{
 			NPCMode = NPCModes.DEAD;
-			GetComponent<Rigidbody>().useGravity = true;
-			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-			GetComponent<Rigidbody>().velocity = MovementVector;
-			CharAnimator.GetComponent<Animator>().enabled = false;
-			CharHandler.Instance.LoseChar(this);
-			MyHealthBar.enabled = false;
-			foreach(Transform t in GetComponentsInChildren<Transform>())
+			if (Random.value > 0.5f)
 			{
-				t.gameObject.layer = LayerMask.NameToLayer("Pushable");
+				GetComponent<Rigidbody>().useGravity = true;
+				GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+				GetComponent<Rigidbody>().velocity = MovementVector;
+				CharAnimator.GetComponent<Animator>().enabled = false;
+				CharHandler.Instance.LoseChar(this);
+				MyHealthBar.enabled = false;
+				
+				foreach(Transform t in GetComponentsInChildren<Transform>())
+				{
+					t.gameObject.layer = LayerMask.NameToLayer("Pushable");
+				}
+				gameObject.layer = LayerMask.NameToLayer("Pushable");
 			}
-			gameObject.layer = LayerMask.NameToLayer("Pushable");
+			else
+			{
+				if (GibletEffect != null)
+				{
+					Instantiate(GibletEffect, CharAnimator.transform.position, CharAnimator.transform.rotation);
+					CharHandler.Instance.LoseChar(this);
+					Destroy(this.gameObject);
+				}
+			}
 		}
+	}
+	
+	public void StartMorph()
+	{
+		DelayTimer = 0.25f;
+		delayFunction = EndMorph;
+		Instantiate(MorphEffect, CharAnimator.transform.position, CharAnimator.transform.rotation);
+	}
+	
+	public void EndMorph()
+	{
+		Instantiate(DemonPrefab, transform.position, transform.rotation);
+		CharHandler.Instance.LoseChar(this);
+		Destroy(this.gameObject);
 	}
 	
 	public void PauseWalk()
@@ -455,6 +489,17 @@ public class CharObject : MonoBehaviour {
 
 		PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Bonk, this.gameObject); 
 
+		if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON && !isConverted && !GameHandler.Instance.getRapture())
+		{
+			NPCMode = NPCModes.FOLLOW;
+			if (CharAnimator != null)
+				CharAnimator.SetTrigger("convert");
+				
+			isConverted = true;
+		}
+			
+		if (NPCMode == NPCModes.DEMON)
+			MyHealthBar.decreaseHealth(35);
 	}
 	
 	public void GetPunched(NPCModes bonker)

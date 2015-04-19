@@ -10,7 +10,7 @@ public class GameHandler : MonoBehaviour {
 	private float spawnRate = 5.0f;
 
 
-	private float raptureTime = 15.0f;
+	public float raptureTime = 15.0f;
 	public static GameHandler Instance;
 
 	public Transform[] spawnPoints = new Transform[4];
@@ -21,6 +21,11 @@ public class GameHandler : MonoBehaviour {
 		if (time > raptureTime) {
 			handleRapture();
 		}
+
+//		time += Time.deltaTime;
+//		if (time > raptureTime) {
+//			setRapture(true);
+//		}
 
 	}
 				
@@ -50,9 +55,10 @@ public class GameHandler : MonoBehaviour {
 			setRapture (true);
 		}
 
-		if (time - lastSpawnTime > spawnRate) {
+		if (time - lastSpawnTime > spawnRate && spawnPoints.Length > 0) {
 			int spawnIdx = Random.Range(0, spawnPoints.Length);
-//			DemonSpawner.Instance.spawnDemon(spawnPoints[spawnIdx]);
+			if (spawnPoints[spawnIdx] != null)
+				DemonSpawner.Instance.spawnDemon(spawnPoints[spawnIdx]);
 			lastSpawnTime = time;
 		}
 

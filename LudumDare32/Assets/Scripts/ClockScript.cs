@@ -10,9 +10,9 @@ public class ClockScript : MonoBehaviour {
 	public Transform hours, minutes;
 
 	void Update() {
-	clocktimer -= Time.deltaTime;
+		clocktimer = GameHandler.Instance.raptureTime;
 	
-	hours.localRotation = Quaternion.Euler (0f, 0f, 30f + clocktimer * hoursToDegrees);
-	minutes.localRotation = Quaternion.Euler (0f, 0f, clocktimer * minutesToDegrees);
+		hours.localRotation = Quaternion.Euler (0f, 0f, 30f + clocktimer * hoursToDegrees);
+		minutes.localRotation = Quaternion.Euler (0f, 0f, clocktimer * minutesToDegrees);
 	}
 }

@@ -41,4 +41,6 @@ public class CharAnimationEvents : MonoBehaviour {
 		Debug.Log("PAUSE CHAR WALKING!");
 		MyCharObj.PauseWalk();
 	}
+	
+	
 }
