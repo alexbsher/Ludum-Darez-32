@@ -16,6 +16,10 @@ ModelImporter:
     100016: Cube_008
     100018: Cube_009
     100020: //RootNode
+    100022: church1
+    100024: church_roof1
+    100026: church_spire1
+    100028: Cube_010
     400000: Cube
     400002: Cube_001
     400004: Cube_002
@@ -27,6 +31,10 @@ ModelImporter:
     400016: Cube_008
     400018: Cube_009
     400020: //RootNode
+    400022: church1
+    400024: church_roof1
+    400026: church_spire1
+    400028: Cube_010
     2300000: Cube
     2300002: Cube_001
     2300004: Cube_002
@@ -37,6 +45,10 @@ ModelImporter:
     2300014: Cube_007
     2300016: Cube_008
     2300018: Cube_009
+    2300020: church1
+    2300022: church_roof1
+    2300024: church_spire1
+    2300026: Cube_010
     3300000: Cube
     3300002: Cube_001
     3300004: Cube_002
@@ -47,6 +59,10 @@ ModelImporter:
     3300014: Cube_007
     3300016: Cube_008
     3300018: Cube_009
+    3300020: church1
+    3300022: church_roof1
+    3300024: church_spire1
+    3300026: Cube_010
     4300000: Cube_009
     4300002: Cube_008
     4300004: Cube_007
@@ -57,6 +73,10 @@ ModelImporter:
     4300014: Cube_002
     4300016: Cube_001
     4300018: Cube
+    4300020: church_spire1
+    4300022: church_roof1
+    4300024: church1
+    4300026: Cube_010
     7400000: Default Take
     9500000: //RootNode
   materials:
