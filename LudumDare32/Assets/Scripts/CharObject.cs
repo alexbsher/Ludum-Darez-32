@@ -17,6 +17,7 @@ public class CharObject : MonoBehaviour {
 	public Transform LookTarget = null;
 	public NavMeshAgent MyNavGhost = null;
 	public GameObject HitParticle = null;
+	public Animator CharAnimator = null;
 
 	float xSeed;
 	float zSeed;
@@ -241,12 +242,18 @@ public class CharObject : MonoBehaviour {
 			if (Input.GetButtonDown("Fire2"))
 				Splash ();
 		}
-	
+		
+		if (CharAnimator != null)
+			CharAnimator.SetFloat("walkSpeed", InputVector.magnitude * BaseSpeed * SpeedMultiplier);
+		
 	}
 	
 	
 	public void Bonk()
 	{
+		if (CharAnimator != null)
+			CharAnimator.SetTrigger("bonk");
+			
 		RaycastHit[] hits = Physics.SphereCastAll(transform.position,0.5f,transform.forward);
 		
 		if (hits != null && hits.Length > 0)
