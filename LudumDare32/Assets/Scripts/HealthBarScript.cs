@@ -60,9 +60,9 @@ public class HealthBarScript : MonoBehaviour
 		float newHealth = currHealth + amount; 
 		if (newHealth > maxHealth) {
 			newHealth = maxHealth;
-		} else {
-			currHealth = newHealth; 
 		}
+		
+		currHealth = newHealth; 
 
 		setSliderValue (); 
 		return currHealth; 

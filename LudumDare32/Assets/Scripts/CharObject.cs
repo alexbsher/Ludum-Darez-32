@@ -435,11 +435,13 @@ public class CharObject : MonoBehaviour {
 		{
 				GameObject temp = (GameObject)Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation);
 				temp.GetComponent<ProjectileMover>().IsFire = false;
+				temp.GetComponent<ProjectileMover>().FromChar = this;
 		}
 		else if (NPCMode == NPCModes.DEMON)
 		{
 				GameObject temp = (GameObject)Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation);
 				temp.GetComponent<ProjectileMover>().IsFire = true;
+				temp.GetComponent<ProjectileMover>().FromChar = this;
 		}
 		else
 		{
@@ -452,10 +454,19 @@ public class CharObject : MonoBehaviour {
 		bool isFire = projectile.GetComponent<ProjectileMover>().IsFire;
 		
 		if (!isFire)
-			if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON && !isConverted)
+		{
+			if (!GameHandler.Instance.getRapture())
 			{
-				NPCMode = NPCModes.WAIT;
+				if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON && !isConverted)
+				{
+					NPCMode = NPCModes.WAIT;
+				}
 			}
+			else
+			{
+				MyHealthBar.increaseHealth(25);
+			}
+		}
 			
 		if (isFire)
 		{
@@ -486,7 +497,8 @@ public class CharObject : MonoBehaviour {
 				temp += point.normal*Mathf.Max(0,Vector3.Dot(temp.normalized,-point.normal))*temp.magnitude;
 			}
 		else {
-			GetSplashed(collision.gameObject);
+			if (collision.gameObject.GetComponent<ProjectileMover>().FromChar != this)
+				GetSplashed(collision.gameObject);
 		}
 		temp.y = 0;
 		MovementVector = temp;

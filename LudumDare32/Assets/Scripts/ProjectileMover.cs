@@ -8,6 +8,7 @@ public class ProjectileMover : MonoBehaviour {
 	private float duration = 0;
 	
 	public bool IsFire = false;
+	public CharObject FromChar = null;
 
 	// Use this for initialization
 	void Start () {
