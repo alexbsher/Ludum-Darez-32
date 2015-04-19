@@ -25,6 +25,7 @@ public class CharObject : MonoBehaviour {
 	private float DelayTimer;
 	
 	private bool pauseWalking = false;
+	private bool isConverted = false;
 
 	float xSeed;
 	float zSeed;
@@ -37,7 +38,8 @@ public class CharObject : MonoBehaviour {
 		FOLLOW,
 		ATTACK,
 		FLEE,
-		DEMON
+		DEMON,
+		DEAD
 	}
 	public NPCModes NPCMode = NPCModes.WANDER;
 
@@ -68,9 +70,12 @@ public class CharObject : MonoBehaviour {
 			delayFunction();
 			delayFunction = DoNothing;
 		}
-	
-		GetComponent<Rigidbody>().velocity = Vector3.zero;
+		
+		if (NPCMode != NPCModes.DEAD)
+			GetComponent<Rigidbody>().velocity = Vector3.zero;
+			
 		SpeedMultiplier = (pauseWalking) ? 0 : 1;
+		MyHealthBar.isFriendly = true;
 		
 		CharObject target;
 		switch (NPCMode)
@@ -183,6 +188,14 @@ public class CharObject : MonoBehaviour {
 					{
 						MyNavGhost.destination = target.transform.position;
 						LookTarget = target.transform;
+						
+						if (Time.time > nextFire) 
+						if ((transform.position - target.transform.position).magnitude < 2)
+						{
+							nextFire = Time.time + fireRate;
+							if (CharAnimator != null)
+								CharAnimator.SetTrigger("punch");
+						}
 					}
 						
 					InputVector = (MyNavGhost.transform.position - transform.position);
@@ -191,14 +204,14 @@ public class CharObject : MonoBehaviour {
 					if (InputVector.magnitude < 1)
 					{
 						InputVector = Vector3.zero;
-						if (CharAnimator != null)
-							CharAnimator.SetTrigger("punch");
 					}
 					
 					InputVector.Normalize();
 			break;
 			
 			case NPCModes.DEMON:
+				MyHealthBar.isFriendly = false;
+			
 				target = null;
 				foreach(CharObject c in CharHandler.Instance.GetAllChars())
 				{
@@ -211,7 +224,18 @@ public class CharObject : MonoBehaviour {
 					}
 				}
 				if (target != null)
+				{
 					MyNavGhost.destination = target.transform.position;
+					LookTarget = target.transform;
+					
+					if (Time.time > nextFire) 
+					if ((transform.position - target.transform.position).magnitude < 10)
+					{
+						nextFire = Time.time + fireRate;
+						if (CharAnimator != null)
+							CharAnimator.SetTrigger("punch");
+					}
+				}
 				
 				InputVector = (MyNavGhost.transform.position - transform.position);
 				InputVector.y = 0;
@@ -220,6 +244,10 @@ public class CharObject : MonoBehaviour {
 					InputVector = Vector3.zero;
 				
 				InputVector.Normalize();
+			break;
+			
+			case NPCModes.DEAD:
+				return;
 			break;
 			
 		default:
@@ -236,7 +264,8 @@ public class CharObject : MonoBehaviour {
 		{
 			Vector3 temp = InputVector;
 			if (hit.collider.gameObject.layer != LayerMask.NameToLayer("Bullets"))
-				temp += hit.normal*Mathf.Max(0,Vector3.Dot(temp.normalized,-hit.normal))*temp.magnitude/hit.distance;
+				if (hit.collider.gameObject.layer != LayerMask.NameToLayer("Pushable"))
+					temp += hit.normal*Mathf.Max(0,Vector3.Dot(temp.normalized,-hit.normal))*temp.magnitude/hit.distance;
 			
 			adjustedInputVector = temp;
 		}
@@ -271,7 +300,22 @@ public class CharObject : MonoBehaviour {
 		
 		if (CharAnimator != null)
 			CharAnimator.SetBool("walk", (InputVector.magnitude > 0));
-		
+			
+		if (MyHealthBar.currHealth <= 0)
+		{
+			NPCMode = NPCModes.DEAD;
+			GetComponent<Rigidbody>().useGravity = true;
+			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+			GetComponent<Rigidbody>().velocity = MovementVector;
+			CharAnimator.GetComponent<Animator>().enabled = false;
+			CharHandler.Instance.LoseChar(this);
+			MyHealthBar.enabled = false;
+			foreach(Transform t in GetComponentsInChildren<Transform>())
+			{
+				t.gameObject.layer = LayerMask.NameToLayer("Pushable");
+			}
+			gameObject.layer = LayerMask.NameToLayer("Pushable");
+		}
 	}
 	
 	public void PauseWalk()
@@ -294,13 +338,33 @@ public class CharObject : MonoBehaviour {
 		{
 			foreach(RaycastHit hit in hits)
 			{
+				if (hit.collider.gameObject != gameObject)
 				if (hit.collider != GetComponent<Collider>())
 					if (hit.distance <= 2)
 						if (hit.collider.gameObject.GetComponent<CharObject>() != null)
 						{
-							hit.collider.gameObject.GetComponent<CharObject>().AddImpact(transform.forward);
+							hit.collider.gameObject.GetComponent<CharObject>().AddImpact(transform.forward/4);
 							hit.collider.gameObject.GetComponent<CharObject>().GetBonked(NPCMode);
 						}
+			}
+		}
+	}
+	
+	public void Punch()
+	{
+		RaycastHit[] hits = Physics.SphereCastAll(transform.position,0.5f,transform.forward);
+		
+		if (hits != null && hits.Length > 0)
+		{
+			foreach(RaycastHit hit in hits)
+			{
+				if (hit.collider != GetComponent<Collider>())
+					if (hit.distance <= 2)
+						if (hit.collider.gameObject.GetComponent<CharObject>() != null)
+					{
+						hit.collider.gameObject.GetComponent<CharObject>().AddImpact(transform.forward/2);
+						hit.collider.gameObject.GetComponent<CharObject>().GetPunched(NPCMode);
+					}
 			}
 		}
 	}
@@ -311,19 +375,47 @@ public class CharObject : MonoBehaviour {
 			NPCMode = NPCModes.FOLLOW;
 	}
 	
+	public void GetPunched(NPCModes bonker)
+	{
+		MyHealthBar.decreaseHealth(35);
+	}
+	
 	public void Splash()
 	{
 		if (NPCMode == NPCModes.PLAYER)
-		if (Time.time > nextFire) {
-			nextFire = Time.time + fireRate;
-			Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation);
+		{
+				GameObject temp = (GameObject)Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation);
+				temp.GetComponent<ProjectileMover>().IsFire = false;
+		}
+		else if (NPCMode == NPCModes.DEMON)
+		{
+				GameObject temp = (GameObject)Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation);
+				temp.GetComponent<ProjectileMover>().IsFire = true;
+		}
+		else
+		{
+			Punch();
 		}
 	}
 	
-	public void GetSplashed()
+	public void GetSplashed(GameObject projectile)
 	{
-		if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON)
-			NPCMode = NPCModes.WAIT;
+		bool isFire = projectile.GetComponent<ProjectileMover>().IsFire;
+		
+		if (!isFire)
+			if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON && !isConverted)
+			{
+				NPCMode = NPCModes.WAIT;
+			}
+			
+		if (isFire)
+		{
+			AddImpact(projectile.transform.forward/2);
+			MyHealthBar.decreaseHealth(35);
+		}
+		
+		Destroy(projectile);
+		
 	}
 	
 	public void DoNothing()
@@ -345,8 +437,7 @@ public class CharObject : MonoBehaviour {
 				temp += point.normal*Mathf.Max(0,Vector3.Dot(temp.normalized,-point.normal))*temp.magnitude;
 			}
 		else {
-			Destroy(collision.gameObject);
-			GetSplashed();
+			GetSplashed(collision.gameObject);
 		}
 		temp.y = 0;
 		MovementVector = temp;

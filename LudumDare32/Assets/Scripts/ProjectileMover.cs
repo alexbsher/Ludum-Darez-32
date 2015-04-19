@@ -6,6 +6,8 @@ public class ProjectileMover : MonoBehaviour {
 	public float speed;
 	public float projectileDuration;
 	private float duration = 0;
+	
+	public bool IsFire = false;
 
 	// Use this for initialization
 	void Start () {
