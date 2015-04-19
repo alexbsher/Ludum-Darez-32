@@ -77,6 +77,18 @@ public class CharObject : MonoBehaviour {
 		{
 			case NPCModes.PLAYER:
 				InputVector = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical"));
+				
+				if (Input.GetButtonDown("Fire1"))
+				{
+					if (CharAnimator != null)
+						CharAnimator.SetTrigger("bonk");
+				}
+				if (Input.GetButtonDown("Fire2"))
+				{
+					if (CharAnimator != null)
+						CharAnimator.SetTrigger("punch");
+				}
+				
 				LookTarget = null;
 			break;
 			
@@ -176,8 +188,12 @@ public class CharObject : MonoBehaviour {
 					InputVector = (MyNavGhost.transform.position - transform.position);
 					InputVector.y = 0;
 					
-					if (InputVector.magnitude < 2)
+					if (InputVector.magnitude < 1)
+					{
 						InputVector = Vector3.zero;
+						if (CharAnimator != null)
+							CharAnimator.SetTrigger("punch");
+					}
 					
 					InputVector.Normalize();
 			break;
@@ -252,20 +268,6 @@ public class CharObject : MonoBehaviour {
 		
 //		if (Input.GetKeyDown(KeyCode.Space))
 //			AddImpact(transform.forward * -1);
-		
-		if (NPCMode == NPCModes.PLAYER)
-		{
-			if (Input.GetButtonDown("Fire1"))
-			{
-				if (CharAnimator != null)
-					CharAnimator.SetTrigger("bonk");
-			}
-			if (Input.GetButtonDown("Fire2"))
-			{
-				if (CharAnimator != null)
-					CharAnimator.SetTrigger("punch");
-			}
-		}
 		
 		if (CharAnimator != null)
 			CharAnimator.SetBool("walk", (InputVector.magnitude > 0));
