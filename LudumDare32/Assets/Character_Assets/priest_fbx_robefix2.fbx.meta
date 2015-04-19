@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 0c2ced10a7102401ba404a9d0586bf0f
-timeCreated: 1429409009
+guid: 5324c8fef45e94d10bbe33c2084968fe
+timeCreated: 1429459889
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -39,18 +39,21 @@ ModelImporter:
     100062: priest_geo:foot_left
     100064: priest_geo:foot_right
     100066: priest_geo:hat
-    100068: priest_geo:head
-    100070: priest_geo:necklace
-    100072: right_elbow_cntrl
-    100074: right_foot_cntrl
-    100076: right_hand_cntrl
-    100078: right_knee_cntrl
-    100080: right_shoulder_cntrl
-    100082: shoulder_left
-    100084: shoulder_right
-    100086: shouldercntrl
-    100088: waist
-    100090: waistCntrl
+    100068: priest_geo:hat1
+    100070: priest_geo:head
+    100072: priest_geo:necklace
+    100074: priest_geo:sleeve01
+    100076: priest_geo:sleeve02
+    100078: right_elbow_cntrl
+    100080: right_foot_cntrl
+    100082: right_hand_cntrl
+    100084: right_knee_cntrl
+    100086: right_shoulder_cntrl
+    100088: shoulder_left
+    100090: shoulder_right
+    100092: shouldercntrl
+    100094: waist
+    100096: waistCntrl
     400000: back
     400002: bopping_item:Mesh
     400004: elbow_left
@@ -85,18 +88,21 @@ ModelImporter:
     400062: priest_geo:foot_left
     400064: priest_geo:foot_right
     400066: priest_geo:hat
-    400068: priest_geo:head
-    400070: priest_geo:necklace
-    400072: right_elbow_cntrl
-    400074: right_foot_cntrl
-    400076: right_hand_cntrl
-    400078: right_knee_cntrl
-    400080: right_shoulder_cntrl
-    400082: shoulder_left
-    400084: shoulder_right
-    400086: shouldercntrl
-    400088: waist
-    400090: waistCntrl
+    400068: priest_geo:hat1
+    400070: priest_geo:head
+    400072: priest_geo:necklace
+    400074: priest_geo:sleeve01
+    400076: priest_geo:sleeve02
+    400078: right_elbow_cntrl
+    400080: right_foot_cntrl
+    400082: right_hand_cntrl
+    400084: right_knee_cntrl
+    400086: right_shoulder_cntrl
+    400088: shoulder_left
+    400090: shoulder_right
+    400092: shouldercntrl
+    400094: waist
+    400096: waistCntrl
     2300000: bopping_item:Mesh
     2300002: priest_geo:arm_left_hand
     2300004: priest_geo:arm_left_lower
@@ -112,8 +118,9 @@ ModelImporter:
     2300024: priest_geo:foot_left
     2300026: priest_geo:foot_right
     2300028: priest_geo:hat
-    2300030: priest_geo:head
-    2300032: priest_geo:necklace
+    2300030: priest_geo:hat1
+    2300032: priest_geo:head
+    2300034: priest_geo:necklace
     3300000: bopping_item:Mesh
     3300002: priest_geo:arm_left_hand
     3300004: priest_geo:arm_left_lower
@@ -129,32 +136,38 @@ ModelImporter:
     3300024: priest_geo:foot_left
     3300026: priest_geo:foot_right
     3300028: priest_geo:hat
-    3300030: priest_geo:head
-    3300032: priest_geo:necklace
+    3300030: priest_geo:hat1
+    3300032: priest_geo:head
+    3300034: priest_geo:necklace
     4300000: bopping_item:Mesh
     4300002: priest_geo:head
     4300004: priest_geo:eye01
     4300006: priest_geo:eye02
     4300008: priest_geo:hat
-    4300010: priest_geo:foot_left
-    4300012: priest_geo:foot_right
-    4300014: priest_geo:body
-    4300016: priest_geo:arm_right_hand
-    4300018: priest_geo:arm_right_lower
-    4300020: priest_geo:arm_right_upper
-    4300022: priest_geo:arm_left_hand
-    4300024: priest_geo:arm_left_lower
-    4300026: priest_geo:arm_left_upper
-    4300028: priest_geo:collar
-    4300030: priest_geo:cross
-    4300032: priest_geo:belt
-    4300034: priest_geo:necklace
+    4300010: priest_geo:hat1
+    4300012: priest_geo:foot_left
+    4300014: priest_geo:foot_right
+    4300016: priest_geo:body
+    4300018: priest_geo:arm_right_hand
+    4300020: priest_geo:arm_right_lower
+    4300022: priest_geo:arm_right_upper
+    4300024: priest_geo:arm_left_hand
+    4300026: priest_geo:arm_left_lower
+    4300028: priest_geo:arm_left_upper
+    4300030: priest_geo:collar
+    4300032: priest_geo:cross
+    4300034: priest_geo:belt
+    4300036: priest_geo:sleeve02
+    4300038: priest_geo:sleeve01
+    4300040: priest_geo:necklace
     7400000: walk
     7400002: bonk
     7400004: idle
     7400006: punch
     9500000: //RootNode
     13700000: priest_geo:body
+    13700002: priest_geo:sleeve01
+    13700004: priest_geo:sleeve02
   materials:
     importMaterials: 1
     materialName: 0
@@ -164,7 +177,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 0
+    animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -175,7 +188,7 @@ ModelImporter:
       name: walk
       takeName: Take 001
       firstFrame: 11
-      lastFrame: 31
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -227,6 +240,8 @@ ModelImporter:
         weight: 1
       - path: priest_geo:hat
         weight: 1
+      - path: priest_geo:hat/priest_geo:hat1
+        weight: 1
       - path: priest_geo:head
         weight: 1
       - path: priest_geo:head/priest_geo:eye01
@@ -234,6 +249,10 @@ ModelImporter:
       - path: priest_geo:head/priest_geo:eye02
         weight: 1
       - path: priest_geo:necklace
+        weight: 1
+      - path: priest_geo:sleeve01
+        weight: 1
+      - path: priest_geo:sleeve02
         weight: 1
       - path: waist
         weight: 1
@@ -292,8 +311,8 @@ ModelImporter:
     - serializedVersion: 16
       name: bonk
       takeName: Take 001
-      firstFrame: 35
-      lastFrame: 55
+      firstFrame: 36
+      lastFrame: 54
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -311,21 +330,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: .551876426
-        functionName: DoBonk
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0
-        functionName: Pause
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask:
       - path: 
         weight: 1
@@ -359,6 +364,8 @@ ModelImporter:
         weight: 1
       - path: priest_geo:hat
         weight: 1
+      - path: priest_geo:hat/priest_geo:hat1
+        weight: 1
       - path: priest_geo:head
         weight: 1
       - path: priest_geo:head/priest_geo:eye01
@@ -366,6 +373,10 @@ ModelImporter:
       - path: priest_geo:head/priest_geo:eye02
         weight: 1
       - path: priest_geo:necklace
+        weight: 1
+      - path: priest_geo:sleeve01
+        weight: 1
+      - path: priest_geo:sleeve02
         weight: 1
       - path: waist
         weight: 1
@@ -431,7 +442,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -477,6 +488,8 @@ ModelImporter:
         weight: 1
       - path: priest_geo:hat
         weight: 1
+      - path: priest_geo:hat/priest_geo:hat1
+        weight: 1
       - path: priest_geo:head
         weight: 1
       - path: priest_geo:head/priest_geo:eye01
@@ -484,6 +497,10 @@ ModelImporter:
       - path: priest_geo:head/priest_geo:eye02
         weight: 1
       - path: priest_geo:necklace
+        weight: 1
+      - path: priest_geo:sleeve01
+        weight: 1
+      - path: priest_geo:sleeve02
         weight: 1
       - path: waist
         weight: 1
@@ -543,7 +560,7 @@ ModelImporter:
       name: punch
       takeName: Take 001
       firstFrame: 105
-      lastFrame: 124
+      lastFrame: 125
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -561,21 +578,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: .580573976
-        functionName: DoSplash
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0
-        functionName: Pause
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask:
       - path: 
         weight: 1
@@ -609,6 +612,8 @@ ModelImporter:
         weight: 1
       - path: priest_geo:hat
         weight: 1
+      - path: priest_geo:hat/priest_geo:hat1
+        weight: 1
       - path: priest_geo:head
         weight: 1
       - path: priest_geo:head/priest_geo:eye01
@@ -616,6 +621,10 @@ ModelImporter:
       - path: priest_geo:head/priest_geo:eye02
         weight: 1
       - path: priest_geo:necklace
+        weight: 1
+      - path: priest_geo:sleeve01
+        weight: 1
+      - path: priest_geo:sleeve02
         weight: 1
       - path: waist
         weight: 1
