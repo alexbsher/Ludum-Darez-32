@@ -1,0 +1,881 @@
+fileFormatVersion: 2
+guid: 63e77db06ae054219a7d4608ab728684
+timeCreated: 1429472023
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: back
+    100002: //RootNode
+    100004: demon_geo:body
+    100006: demon_geo:cross
+    100008: demon_geo:head
+    100010: demon_geo:horn01
+    100012: demon_geo:horn02
+    100014: demon_geo:left_arm_lower
+    100016: demon_geo:left_arm_lower1
+    100018: demon_geo:left_arm_lower2
+    100020: demon_geo:left_arm_lower3
+    100022: demon_geo:left_arm_upper
+    100024: demon_geo:left_arm_upper1
+    100026: demon_geo:left_arm_upper2
+    100028: demon_geo:left_arm_upper3
+    100030: demon_geo:left_hand
+    100032: demon_geo:left_hand1
+    100034: demon_geo:pCylinder1
+    100036: demon_geo:pCylinder2
+    100038: demon_geo:priest_geo1:eye01
+    100040: demon_geo:priest_geo1:eye02
+    100042: elbow_left
+    100044: elbow_right
+    100046: hand_left
+    100048: hand_right
+    100050: head_control
+    100052: left_elbow_cntrl
+    100054: left_foot
+    100056: left_foot_cntrl
+    100058: left_hand_cntrl
+    100060: left_hip
+    100062: left_knee
+    100064: left_knee_cntrl
+    100066: left_shoulder_cntrl
+    100068: leftIK
+    100070: neck
+    100072: priest_geoRNfosterParent1
+    100074: right_elbow_cntrl
+    100076: right_foot
+    100078: right_foot_cntrl
+    100080: right_hand_cntrl
+    100082: right_hip
+    100084: right_knee
+    100086: right_knee_cntrl
+    100088: right_shoulder_cntrl
+    100090: rightIK
+    100092: shoulder_left
+    100094: shoulder_right
+    100096: shouldercntrl
+    100098: villager_geoRNfosterParent1
+    100100: waist
+    100102: waistCntrl
+    400000: back
+    400002: //RootNode
+    400004: demon_geo:body
+    400006: demon_geo:cross
+    400008: demon_geo:head
+    400010: demon_geo:horn01
+    400012: demon_geo:horn02
+    400014: demon_geo:left_arm_lower
+    400016: demon_geo:left_arm_lower1
+    400018: demon_geo:left_arm_lower2
+    400020: demon_geo:left_arm_lower3
+    400022: demon_geo:left_arm_upper
+    400024: demon_geo:left_arm_upper1
+    400026: demon_geo:left_arm_upper2
+    400028: demon_geo:left_arm_upper3
+    400030: demon_geo:left_hand
+    400032: demon_geo:left_hand1
+    400034: demon_geo:pCylinder1
+    400036: demon_geo:pCylinder2
+    400038: demon_geo:priest_geo1:eye01
+    400040: demon_geo:priest_geo1:eye02
+    400042: elbow_left
+    400044: elbow_right
+    400046: hand_left
+    400048: hand_right
+    400050: head_control
+    400052: left_elbow_cntrl
+    400054: left_foot
+    400056: left_foot_cntrl
+    400058: left_hand_cntrl
+    400060: left_hip
+    400062: left_knee
+    400064: left_knee_cntrl
+    400066: left_shoulder_cntrl
+    400068: leftIK
+    400070: neck
+    400072: priest_geoRNfosterParent1
+    400074: right_elbow_cntrl
+    400076: right_foot
+    400078: right_foot_cntrl
+    400080: right_hand_cntrl
+    400082: right_hip
+    400084: right_knee
+    400086: right_knee_cntrl
+    400088: right_shoulder_cntrl
+    400090: rightIK
+    400092: shoulder_left
+    400094: shoulder_right
+    400096: shouldercntrl
+    400098: villager_geoRNfosterParent1
+    400100: waist
+    400102: waistCntrl
+    2300000: demon_geo:cross
+    2300002: demon_geo:head
+    2300004: demon_geo:horn01
+    2300006: demon_geo:horn02
+    2300008: demon_geo:left_arm_lower
+    2300010: demon_geo:left_arm_lower1
+    2300012: demon_geo:left_arm_lower2
+    2300014: demon_geo:left_arm_lower3
+    2300016: demon_geo:left_arm_upper
+    2300018: demon_geo:left_arm_upper1
+    2300020: demon_geo:left_arm_upper2
+    2300022: demon_geo:left_arm_upper3
+    2300024: demon_geo:left_hand
+    2300026: demon_geo:left_hand1
+    2300028: demon_geo:pCylinder1
+    2300030: demon_geo:pCylinder2
+    2300032: demon_geo:priest_geo1:eye01
+    2300034: demon_geo:priest_geo1:eye02
+    3300000: demon_geo:cross
+    3300002: demon_geo:head
+    3300004: demon_geo:horn01
+    3300006: demon_geo:horn02
+    3300008: demon_geo:left_arm_lower
+    3300010: demon_geo:left_arm_lower1
+    3300012: demon_geo:left_arm_lower2
+    3300014: demon_geo:left_arm_lower3
+    3300016: demon_geo:left_arm_upper
+    3300018: demon_geo:left_arm_upper1
+    3300020: demon_geo:left_arm_upper2
+    3300022: demon_geo:left_arm_upper3
+    3300024: demon_geo:left_hand
+    3300026: demon_geo:left_hand1
+    3300028: demon_geo:pCylinder1
+    3300030: demon_geo:pCylinder2
+    3300032: demon_geo:priest_geo1:eye01
+    3300034: demon_geo:priest_geo1:eye02
+    4300000: demon_geo:body
+    4300002: demon_geo:left_hand1
+    4300004: demon_geo:left_arm_lower3
+    4300006: demon_geo:left_arm_upper3
+    4300008: demon_geo:pCylinder2
+    4300010: demon_geo:left_arm_lower2
+    4300012: demon_geo:left_arm_upper2
+    4300014: demon_geo:left_hand
+    4300016: demon_geo:left_arm_lower
+    4300018: demon_geo:left_arm_upper
+    4300020: demon_geo:pCylinder1
+    4300022: demon_geo:left_arm_lower1
+    4300024: demon_geo:left_arm_upper1
+    4300026: demon_geo:head
+    4300028: demon_geo:priest_geo1:eye01
+    4300030: demon_geo:priest_geo1:eye02
+    4300032: demon_geo:horn01
+    4300034: demon_geo:horn02
+    4300036: demon_geo:cross
+    7400000: walk
+    7400002: bonk
+    7400004: idle
+    7400006: punch
+    7400008: convert
+    9500000: //RootNode
+    13700000: demon_geo:body
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: walk
+      takeName: Take 001
+      firstFrame: 11
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: demon_geo:body
+        weight: 1
+      - path: demon_geo:cross
+        weight: 1
+      - path: demon_geo:head
+        weight: 1
+      - path: demon_geo:head/demon_geo:horn01
+        weight: 1
+      - path: demon_geo:head/demon_geo:horn02
+        weight: 1
+      - path: demon_geo:head/demon_geo:priest_geo1:eye01
+        weight: 1
+      - path: demon_geo:head/demon_geo:priest_geo1:eye02
+        weight: 1
+      - path: demon_geo:left_arm_lower
+        weight: 1
+      - path: demon_geo:left_arm_lower1
+        weight: 1
+      - path: demon_geo:left_arm_lower2
+        weight: 1
+      - path: demon_geo:left_arm_lower3
+        weight: 1
+      - path: demon_geo:left_arm_upper
+        weight: 1
+      - path: demon_geo:left_arm_upper1
+        weight: 1
+      - path: demon_geo:left_arm_upper2
+        weight: 1
+      - path: demon_geo:left_arm_upper3
+        weight: 1
+      - path: demon_geo:left_hand
+        weight: 1
+      - path: demon_geo:left_hand1
+        weight: 1
+      - path: demon_geo:pCylinder1
+        weight: 1
+      - path: demon_geo:pCylinder2
+        weight: 1
+      - path: leftIK
+        weight: 1
+      - path: priest_geoRNfosterParent1
+        weight: 1
+      - path: rightIK
+        weight: 1
+      - path: villager_geoRNfosterParent1
+        weight: 1
+      - path: waist
+        weight: 1
+      - path: waist/back
+        weight: 1
+      - path: waist/back/neck
+        weight: 1
+      - path: waist/back/shoulder_left
+        weight: 1
+      - path: waist/back/shoulder_left/elbow_left
+        weight: 1
+      - path: waist/back/shoulder_left/elbow_left/hand_left
+        weight: 1
+      - path: waist/back/shoulder_right
+        weight: 1
+      - path: waist/back/shoulder_right/elbow_right
+        weight: 1
+      - path: waist/back/shoulder_right/elbow_right/hand_right
+        weight: 1
+      - path: waist/left_hip
+        weight: 1
+      - path: waist/left_hip/left_knee
+        weight: 1
+      - path: waist/left_hip/left_knee/left_foot
+        weight: 1
+      - path: waist/left_knee_cntrl
+        weight: 1
+      - path: waist/left_knee_cntrl/left_foot_cntrl
+        weight: 1
+      - path: waist/right_hip
+        weight: 1
+      - path: waist/right_hip/right_knee
+        weight: 1
+      - path: waist/right_hip/right_knee/right_foot
+        weight: 1
+      - path: waist/right_knee_cntrl
+        weight: 1
+      - path: waist/right_knee_cntrl/right_foot_cntrl
+        weight: 1
+      - path: waistCntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/head_control
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl/left_elbow_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl/left_elbow_cntrl/left_hand_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl/right_elbow_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl/right_elbow_cntrl/right_hand_cntrl
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: bonk
+      takeName: Take 001
+      firstFrame: 36
+      lastFrame: 54
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: demon_geo:body
+        weight: 1
+      - path: demon_geo:cross
+        weight: 1
+      - path: demon_geo:head
+        weight: 1
+      - path: demon_geo:head/demon_geo:horn01
+        weight: 1
+      - path: demon_geo:head/demon_geo:horn02
+        weight: 1
+      - path: demon_geo:head/demon_geo:priest_geo1:eye01
+        weight: 1
+      - path: demon_geo:head/demon_geo:priest_geo1:eye02
+        weight: 1
+      - path: demon_geo:left_arm_lower
+        weight: 1
+      - path: demon_geo:left_arm_lower1
+        weight: 1
+      - path: demon_geo:left_arm_lower2
+        weight: 1
+      - path: demon_geo:left_arm_lower3
+        weight: 1
+      - path: demon_geo:left_arm_upper
+        weight: 1
+      - path: demon_geo:left_arm_upper1
+        weight: 1
+      - path: demon_geo:left_arm_upper2
+        weight: 1
+      - path: demon_geo:left_arm_upper3
+        weight: 1
+      - path: demon_geo:left_hand
+        weight: 1
+      - path: demon_geo:left_hand1
+        weight: 1
+      - path: demon_geo:pCylinder1
+        weight: 1
+      - path: demon_geo:pCylinder2
+        weight: 1
+      - path: leftIK
+        weight: 1
+      - path: priest_geoRNfosterParent1
+        weight: 1
+      - path: rightIK
+        weight: 1
+      - path: villager_geoRNfosterParent1
+        weight: 1
+      - path: waist
+        weight: 1
+      - path: waist/back
+        weight: 1
+      - path: waist/back/neck
+        weight: 1
+      - path: waist/back/shoulder_left
+        weight: 1
+      - path: waist/back/shoulder_left/elbow_left
+        weight: 1
+      - path: waist/back/shoulder_left/elbow_left/hand_left
+        weight: 1
+      - path: waist/back/shoulder_right
+        weight: 1
+      - path: waist/back/shoulder_right/elbow_right
+        weight: 1
+      - path: waist/back/shoulder_right/elbow_right/hand_right
+        weight: 1
+      - path: waist/left_hip
+        weight: 1
+      - path: waist/left_hip/left_knee
+        weight: 1
+      - path: waist/left_hip/left_knee/left_foot
+        weight: 1
+      - path: waist/left_knee_cntrl
+        weight: 1
+      - path: waist/left_knee_cntrl/left_foot_cntrl
+        weight: 1
+      - path: waist/right_hip
+        weight: 1
+      - path: waist/right_hip/right_knee
+        weight: 1
+      - path: waist/right_hip/right_knee/right_foot
+        weight: 1
+      - path: waist/right_knee_cntrl
+        weight: 1
+      - path: waist/right_knee_cntrl/right_foot_cntrl
+        weight: 1
+      - path: waistCntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/head_control
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl/left_elbow_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl/left_elbow_cntrl/left_hand_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl/right_elbow_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl/right_elbow_cntrl/right_hand_cntrl
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: idle
+      takeName: Take 001
+      firstFrame: 60
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: demon_geo:body
+        weight: 1
+      - path: demon_geo:cross
+        weight: 1
+      - path: demon_geo:head
+        weight: 1
+      - path: demon_geo:head/demon_geo:horn01
+        weight: 1
+      - path: demon_geo:head/demon_geo:horn02
+        weight: 1
+      - path: demon_geo:head/demon_geo:priest_geo1:eye01
+        weight: 1
+      - path: demon_geo:head/demon_geo:priest_geo1:eye02
+        weight: 1
+      - path: demon_geo:left_arm_lower
+        weight: 1
+      - path: demon_geo:left_arm_lower1
+        weight: 1
+      - path: demon_geo:left_arm_lower2
+        weight: 1
+      - path: demon_geo:left_arm_lower3
+        weight: 1
+      - path: demon_geo:left_arm_upper
+        weight: 1
+      - path: demon_geo:left_arm_upper1
+        weight: 1
+      - path: demon_geo:left_arm_upper2
+        weight: 1
+      - path: demon_geo:left_arm_upper3
+        weight: 1
+      - path: demon_geo:left_hand
+        weight: 1
+      - path: demon_geo:left_hand1
+        weight: 1
+      - path: demon_geo:pCylinder1
+        weight: 1
+      - path: demon_geo:pCylinder2
+        weight: 1
+      - path: leftIK
+        weight: 1
+      - path: priest_geoRNfosterParent1
+        weight: 1
+      - path: rightIK
+        weight: 1
+      - path: villager_geoRNfosterParent1
+        weight: 1
+      - path: waist
+        weight: 1
+      - path: waist/back
+        weight: 1
+      - path: waist/back/neck
+        weight: 1
+      - path: waist/back/shoulder_left
+        weight: 1
+      - path: waist/back/shoulder_left/elbow_left
+        weight: 1
+      - path: waist/back/shoulder_left/elbow_left/hand_left
+        weight: 1
+      - path: waist/back/shoulder_right
+        weight: 1
+      - path: waist/back/shoulder_right/elbow_right
+        weight: 1
+      - path: waist/back/shoulder_right/elbow_right/hand_right
+        weight: 1
+      - path: waist/left_hip
+        weight: 1
+      - path: waist/left_hip/left_knee
+        weight: 1
+      - path: waist/left_hip/left_knee/left_foot
+        weight: 1
+      - path: waist/left_knee_cntrl
+        weight: 1
+      - path: waist/left_knee_cntrl/left_foot_cntrl
+        weight: 1
+      - path: waist/right_hip
+        weight: 1
+      - path: waist/right_hip/right_knee
+        weight: 1
+      - path: waist/right_hip/right_knee/right_foot
+        weight: 1
+      - path: waist/right_knee_cntrl
+        weight: 1
+      - path: waist/right_knee_cntrl/right_foot_cntrl
+        weight: 1
+      - path: waistCntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/head_control
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl/left_elbow_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl/left_elbow_cntrl/left_hand_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl/right_elbow_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl/right_elbow_cntrl/right_hand_cntrl
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: punch
+      takeName: Take 001
+      firstFrame: 105
+      lastFrame: 125
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: demon_geo:body
+        weight: 1
+      - path: demon_geo:cross
+        weight: 1
+      - path: demon_geo:head
+        weight: 1
+      - path: demon_geo:head/demon_geo:horn01
+        weight: 1
+      - path: demon_geo:head/demon_geo:horn02
+        weight: 1
+      - path: demon_geo:head/demon_geo:priest_geo1:eye01
+        weight: 1
+      - path: demon_geo:head/demon_geo:priest_geo1:eye02
+        weight: 1
+      - path: demon_geo:left_arm_lower
+        weight: 1
+      - path: demon_geo:left_arm_lower1
+        weight: 1
+      - path: demon_geo:left_arm_lower2
+        weight: 1
+      - path: demon_geo:left_arm_lower3
+        weight: 1
+      - path: demon_geo:left_arm_upper
+        weight: 1
+      - path: demon_geo:left_arm_upper1
+        weight: 1
+      - path: demon_geo:left_arm_upper2
+        weight: 1
+      - path: demon_geo:left_arm_upper3
+        weight: 1
+      - path: demon_geo:left_hand
+        weight: 1
+      - path: demon_geo:left_hand1
+        weight: 1
+      - path: demon_geo:pCylinder1
+        weight: 1
+      - path: demon_geo:pCylinder2
+        weight: 1
+      - path: leftIK
+        weight: 1
+      - path: priest_geoRNfosterParent1
+        weight: 1
+      - path: rightIK
+        weight: 1
+      - path: villager_geoRNfosterParent1
+        weight: 1
+      - path: waist
+        weight: 1
+      - path: waist/back
+        weight: 1
+      - path: waist/back/neck
+        weight: 1
+      - path: waist/back/shoulder_left
+        weight: 1
+      - path: waist/back/shoulder_left/elbow_left
+        weight: 1
+      - path: waist/back/shoulder_left/elbow_left/hand_left
+        weight: 1
+      - path: waist/back/shoulder_right
+        weight: 1
+      - path: waist/back/shoulder_right/elbow_right
+        weight: 1
+      - path: waist/back/shoulder_right/elbow_right/hand_right
+        weight: 1
+      - path: waist/left_hip
+        weight: 1
+      - path: waist/left_hip/left_knee
+        weight: 1
+      - path: waist/left_hip/left_knee/left_foot
+        weight: 1
+      - path: waist/left_knee_cntrl
+        weight: 1
+      - path: waist/left_knee_cntrl/left_foot_cntrl
+        weight: 1
+      - path: waist/right_hip
+        weight: 1
+      - path: waist/right_hip/right_knee
+        weight: 1
+      - path: waist/right_hip/right_knee/right_foot
+        weight: 1
+      - path: waist/right_knee_cntrl
+        weight: 1
+      - path: waist/right_knee_cntrl/right_foot_cntrl
+        weight: 1
+      - path: waistCntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/head_control
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl/left_elbow_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl/left_elbow_cntrl/left_hand_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl/right_elbow_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl/right_elbow_cntrl/right_hand_cntrl
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: convert
+      takeName: Take 001
+      firstFrame: 130
+      lastFrame: 168
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: demon_geo:body
+        weight: 1
+      - path: demon_geo:cross
+        weight: 1
+      - path: demon_geo:head
+        weight: 1
+      - path: demon_geo:head/demon_geo:horn01
+        weight: 1
+      - path: demon_geo:head/demon_geo:horn02
+        weight: 1
+      - path: demon_geo:head/demon_geo:priest_geo1:eye01
+        weight: 1
+      - path: demon_geo:head/demon_geo:priest_geo1:eye02
+        weight: 1
+      - path: demon_geo:left_arm_lower
+        weight: 1
+      - path: demon_geo:left_arm_lower1
+        weight: 1
+      - path: demon_geo:left_arm_lower2
+        weight: 1
+      - path: demon_geo:left_arm_lower3
+        weight: 1
+      - path: demon_geo:left_arm_upper
+        weight: 1
+      - path: demon_geo:left_arm_upper1
+        weight: 1
+      - path: demon_geo:left_arm_upper2
+        weight: 1
+      - path: demon_geo:left_arm_upper3
+        weight: 1
+      - path: demon_geo:left_hand
+        weight: 1
+      - path: demon_geo:left_hand1
+        weight: 1
+      - path: demon_geo:pCylinder1
+        weight: 1
+      - path: demon_geo:pCylinder2
+        weight: 1
+      - path: leftIK
+        weight: 1
+      - path: priest_geoRNfosterParent1
+        weight: 1
+      - path: rightIK
+        weight: 1
+      - path: villager_geoRNfosterParent1
+        weight: 1
+      - path: waist
+        weight: 1
+      - path: waist/back
+        weight: 1
+      - path: waist/back/neck
+        weight: 1
+      - path: waist/back/shoulder_left
+        weight: 1
+      - path: waist/back/shoulder_left/elbow_left
+        weight: 1
+      - path: waist/back/shoulder_left/elbow_left/hand_left
+        weight: 1
+      - path: waist/back/shoulder_right
+        weight: 1
+      - path: waist/back/shoulder_right/elbow_right
+        weight: 1
+      - path: waist/back/shoulder_right/elbow_right/hand_right
+        weight: 1
+      - path: waist/left_hip
+        weight: 1
+      - path: waist/left_hip/left_knee
+        weight: 1
+      - path: waist/left_hip/left_knee/left_foot
+        weight: 1
+      - path: waist/left_knee_cntrl
+        weight: 1
+      - path: waist/left_knee_cntrl/left_foot_cntrl
+        weight: 1
+      - path: waist/right_hip
+        weight: 1
+      - path: waist/right_hip/right_knee
+        weight: 1
+      - path: waist/right_hip/right_knee/right_foot
+        weight: 1
+      - path: waist/right_knee_cntrl
+        weight: 1
+      - path: waist/right_knee_cntrl/right_foot_cntrl
+        weight: 1
+      - path: waistCntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/head_control
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl/left_elbow_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/left_shoulder_cntrl/left_elbow_cntrl/left_hand_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl/right_elbow_cntrl
+        weight: 1
+      - path: waistCntrl/shouldercntrl/right_shoulder_cntrl/right_elbow_cntrl/right_hand_cntrl
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
