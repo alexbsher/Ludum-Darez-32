@@ -1,10 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CharObject.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MoveTo.cs">
     <Files>
-      <File FileName="Assets\Scripts\CharObject.cs" Line="215" Column="37" />
+      <File FileName="Assets\Scripts\CharObject.cs" Line="253" Column="22" />
       <File FileName="Assets\Scripts\MoveTo.cs" Line="17" Column="39" />
-      <File FileName="Assets\Scripts\CharHandler.cs" Line="10" Column="21" />
+      <File FileName="Assets\Scripts\CharHandler.cs" Line="31" Column="1" />
+      <File FileName="Assets\CameraFollow.cs" Line="15" Column="71" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

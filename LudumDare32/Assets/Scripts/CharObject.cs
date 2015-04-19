@@ -16,7 +16,6 @@ public class CharObject : MonoBehaviour {
 	public float BaseSpeed = 0.1f;
 	public Transform LookTarget = null;
 	public NavMeshAgent MyNavGhost = null;
-	
 	public GameObject HitParticle = null;
 
 	float xSeed;
@@ -26,6 +25,7 @@ public class CharObject : MonoBehaviour {
 	{
 		PLAYER,
 		WANDER,
+		WAIT,
 		FOLLOW,
 		ATTACK,
 		FLEE,
@@ -52,7 +52,8 @@ public class CharObject : MonoBehaviour {
 	void Update () {
 	
 		GetComponent<Rigidbody>().velocity = Vector3.zero;
-
+		SpeedMultiplier = 1;
+		
 		CharObject target;
 		switch (NPCMode)
 		{
@@ -70,7 +71,17 @@ public class CharObject : MonoBehaviour {
 				
 				LookTarget = null;
 			break;
-
+			
+			case NPCModes.WAIT:
+				SpeedMultiplier = 0;
+				
+				InputVector = Vector3.zero;
+				InputVector.x = Mathf.PerlinNoise(Time.time/5 + xSeed,0) * 2 - 1;
+				InputVector.z = Mathf.PerlinNoise(0, Time.time/5 + zSeed) * 2 - 1;
+				
+				LookTarget = null;
+			break;
+				
 			case NPCModes.FOLLOW:
 				target = null;
 				foreach(CharObject c in CharHandler.Instance.GetAllChars())
@@ -245,9 +256,18 @@ public class CharObject : MonoBehaviour {
 				if (hit.collider != GetComponent<Collider>())
 					if (hit.distance <= 2)
 						if (hit.collider.gameObject.GetComponent<CharObject>() != null)
+						{
 							hit.collider.gameObject.GetComponent<CharObject>().AddImpact(transform.forward);
+							hit.collider.gameObject.GetComponent<CharObject>().GetBonked(NPCMode);
+						}
 			}
 		}
+	}
+	
+	public void GetBonked(NPCModes bonker)
+	{
+		if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON)
+			NPCMode = NPCModes.FOLLOW;
 	}
 	
 	public void Splash()
@@ -256,6 +276,12 @@ public class CharObject : MonoBehaviour {
 			nextFire = Time.time + fireRate;
 			Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation);
 		}
+	}
+	
+	public void GetSplashed()
+	{
+		if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON)
+			NPCMode = NPCModes.WAIT;
 	}
 
 	public void AddImpact(Vector3 forceVector)
@@ -271,6 +297,9 @@ public class CharObject : MonoBehaviour {
 			{		 
 				temp += point.normal*Mathf.Max(0,Vector3.Dot(temp.normalized,-point.normal))*temp.magnitude;
 			}
+		else 
+			GetSplashed();
+			
 		temp.y = 0;
 		MovementVector = temp;
 	}
