@@ -9,6 +9,8 @@ public class HealthBarScript : MonoBehaviour
 	public Slider healthBarSlider;
 	public Canvas healthBarCanvas;
 	public Image Fill;
+	public bool isFriendly = true;
+
 
 	private Color friendlyColor = new Color(0.0f, 196.0f, 0.0f); 
 	private Color enemyColor = new Color(221.0f, 0.0f, 41.0f); 
@@ -25,6 +27,7 @@ public class HealthBarScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		Fill.color = (isFriendly) ? friendlyColor : enemyColor;
 		Vector2 targetPos;
 		targetPos = Camera.main.WorldToScreenPoint (transform.position);
 		healthBarCanvas.transform.LookAt (Camera.main.transform.localPosition);

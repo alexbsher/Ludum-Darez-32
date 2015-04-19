@@ -18,10 +18,13 @@ public class CharObject : MonoBehaviour {
 	public NavMeshAgent MyNavGhost = null;
 	public GameObject HitParticle = null;
 	public Animator CharAnimator = null;
+	public HealthBarScript MyHealthBar = null;
 	
 	private delegate void DelayFunction();
 	private DelayFunction delayFunction;
 	private float DelayTimer;
+	
+	private bool pauseWalking = false;
 
 	float xSeed;
 	float zSeed;
@@ -67,7 +70,7 @@ public class CharObject : MonoBehaviour {
 		}
 	
 		GetComponent<Rigidbody>().velocity = Vector3.zero;
-		SpeedMultiplier = 1;
+		SpeedMultiplier = (pauseWalking) ? 0 : 1;
 		
 		CharObject target;
 		switch (NPCMode)
@@ -78,7 +81,7 @@ public class CharObject : MonoBehaviour {
 			break;
 			
 			case NPCModes.WANDER:
-				SpeedMultiplier = 0.25f;
+				SpeedMultiplier *= 0.25f;
 				
 				InputVector = Vector3.zero;
 				InputVector.x = Mathf.PerlinNoise(Time.time/5 + xSeed,0) * 2 - 1;
@@ -88,7 +91,7 @@ public class CharObject : MonoBehaviour {
 			break;
 			
 			case NPCModes.WAIT:
-				SpeedMultiplier = 0;
+				SpeedMultiplier *= 0;
 				
 				InputVector = Vector3.zero;
 				InputVector.x = Mathf.PerlinNoise(Time.time/5 + xSeed,0) * 2 - 1;
@@ -269,6 +272,17 @@ public class CharObject : MonoBehaviour {
 		
 	}
 	
+	public void PauseWalk()
+	{
+		pauseWalking = true;
+		DelayTimer = 1f;
+		delayFunction = UnPauseWalk;
+	}
+	
+	public void UnPauseWalk()
+	{
+		pauseWalking = false;
+	}
 	
 	public void Bonk()
 	{
@@ -297,6 +311,7 @@ public class CharObject : MonoBehaviour {
 	
 	public void Splash()
 	{
+		if (NPCMode == NPCModes.PLAYER)
 		if (Time.time > nextFire) {
 			nextFire = Time.time + fireRate;
 			Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation);

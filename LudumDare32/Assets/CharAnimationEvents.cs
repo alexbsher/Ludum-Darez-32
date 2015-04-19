@@ -26,4 +26,10 @@ public class CharAnimationEvents : MonoBehaviour {
 		Debug.Log("DOING SPLASH!");
 		MyCharObj.Splash();
 	}
+	
+	public void Pause()
+	{
+		Debug.Log("PAUSE CHAR WALKING!");
+		MyCharObj.PauseWalk();
+	}
 }
