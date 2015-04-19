@@ -237,7 +237,7 @@ public class CharObject : MonoBehaviour {
 					InputVector = (MyNavGhost.transform.position - transform.position);
 					InputVector.y = 0;
 					
-					if (InputVector.magnitude < 1)
+					if (InputVector.magnitude < 2)
 					{
 						InputVector = Vector3.zero;
 					}
@@ -293,7 +293,7 @@ public class CharObject : MonoBehaviour {
 				InputVector = (MyNavGhost.transform.position - transform.position);
 				InputVector.y = 0;
 				
-				if (InputVector.magnitude < 1)
+				if (InputVector.magnitude < 2)
 					InputVector = Vector3.zero;
 				
 				InputVector.Normalize();
@@ -401,6 +401,7 @@ public class CharObject : MonoBehaviour {
 	
 	public void Punch()
 	{
+		Debug.Log ("villager is trying to punch!");
 		RaycastHit[] hits = Physics.SphereCastAll(transform.position,0.5f,transform.forward);
 		
 		if (hits != null && hits.Length > 0)
@@ -408,12 +409,12 @@ public class CharObject : MonoBehaviour {
 			foreach(RaycastHit hit in hits)
 			{
 				if (hit.collider != GetComponent<Collider>())
-					if (hit.distance <= 2)
+					if (hit.distance <= 3)
 						if (hit.collider.gameObject.GetComponent<CharObject>() != null)
-					{
-						hit.collider.gameObject.GetComponent<CharObject>().AddImpact(transform.forward/2);
-						hit.collider.gameObject.GetComponent<CharObject>().GetPunched(NPCMode);
-					}
+						{
+							hit.collider.gameObject.GetComponent<CharObject>().AddImpact(transform.forward/2);
+							hit.collider.gameObject.GetComponent<CharObject>().GetPunched(NPCMode);
+						}
 			}
 		}
 	}
@@ -426,6 +427,7 @@ public class CharObject : MonoBehaviour {
 	
 	public void GetPunched(NPCModes bonker)
 	{
+		Debug.Log("IVE BEEN PUNCHED!!");
 		MyHealthBar.decreaseHealth(35);
 	}
 	
