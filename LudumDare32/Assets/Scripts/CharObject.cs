@@ -78,6 +78,9 @@ public class CharObject : MonoBehaviour {
 		MyHealthBar.isFriendly = true;
 		
 		CharObject target;
+		if (NPCMode == NPCModes.DEAD)
+			return;
+			
 		switch (NPCMode)
 		{
 			case NPCModes.PLAYER:
@@ -98,6 +101,13 @@ public class CharObject : MonoBehaviour {
 			break;
 			
 			case NPCModes.WANDER:
+			
+				if (GameHandler.Instance.getRapture())
+				{
+					NPCMode = NPCModes.DEMON;
+					return;
+				}
+			
 				SpeedMultiplier *= 0.25f;
 				
 				InputVector = Vector3.zero;
@@ -105,9 +115,17 @@ public class CharObject : MonoBehaviour {
 				InputVector.z = Mathf.PerlinNoise(0, Time.time/5 + zSeed) * 2 - 1;
 				
 				LookTarget = null;
+				
 			break;
 			
 			case NPCModes.WAIT:
+			
+				if (GameHandler.Instance.getRapture())
+				{
+					NPCMode = NPCModes.DEMON;
+					return;
+				}
+				
 				SpeedMultiplier *= 0;
 				
 				InputVector = Vector3.zero;
@@ -115,9 +133,11 @@ public class CharObject : MonoBehaviour {
 				InputVector.z = Mathf.PerlinNoise(0, Time.time/5 + zSeed) * 2 - 1;
 				
 				LookTarget = null;
+				
 			break;
 				
 			case NPCModes.FOLLOW:
+			
 				target = null;
 				foreach(CharObject c in CharHandler.Instance.GetAllChars())
 				{
@@ -142,6 +162,22 @@ public class CharObject : MonoBehaviour {
 					InputVector = Vector3.zero;
 				
 				InputVector.Normalize();
+				
+				if (GameHandler.Instance.getRapture())
+				{
+					foreach(CharObject c in CharHandler.Instance.GetAllChars())
+					{
+						if (c.NPCMode == NPCModes.DEMON)
+						{
+							if (target != null)
+							if ((target.transform.position - c.transform.position).magnitude < 10)
+							{
+								NPCMode = NPCModes.ATTACK;
+								return;
+							}
+						}
+					}
+				}
 			break;
 	
 			case NPCModes.FLEE:
@@ -207,11 +243,28 @@ public class CharObject : MonoBehaviour {
 					}
 					
 					InputVector.Normalize();
+					
+					if (GameHandler.Instance.getRapture())
+					{
+						Vector3? playerPos = null;
+						
+						foreach(CharObject c in CharHandler.Instance.GetAllChars())
+						{
+							if (c.NPCMode == NPCModes.PLAYER)
+								playerPos = c.transform.position;
+						}
+						
+						if (target == null || (target.transform.position - (Vector3)playerPos).magnitude > 15)
+						{
+							NPCMode = NPCModes.FOLLOW;
+							return;
+						}
+					}
 			break;
 			
 			case NPCModes.DEMON:
 				MyHealthBar.isFriendly = false;
-			
+				fireRate = 2f;
 				target = null;
 				foreach(CharObject c in CharHandler.Instance.GetAllChars())
 				{
@@ -246,11 +299,7 @@ public class CharObject : MonoBehaviour {
 				InputVector.Normalize();
 			break;
 			
-			case NPCModes.DEAD:
-				return;
-			break;
-			
-		default:
+			default:
 				
 			break;
 		}

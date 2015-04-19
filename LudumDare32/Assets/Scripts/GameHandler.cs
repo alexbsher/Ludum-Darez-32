@@ -3,12 +3,12 @@ using System.Collections;
 
 public class GameHandler : MonoBehaviour {
 		
-	private bool isRapture = false;
+	public bool isRapture = false;
 	private int score = 0;
 	private float time = 0;
 
 	private float raptureTime = 15.0f;
-	private GameHandler Instance;
+	public static GameHandler Instance;
 
 	void Update() {
 
@@ -23,19 +23,19 @@ public class GameHandler : MonoBehaviour {
 		Instance = this;
 	}
 
-	void setRapture(bool rapture) {
+	public void setRapture(bool rapture) {
 		isRapture = rapture;
 	}
 	
-	bool getRapture() {
+	public bool getRapture() {
 		return isRapture;
 	}
 
-	int getScore() {
+	public int getScore() {
 		return score;
 	}
 
-	void changeScore(int scoreChange) {
+	public void changeScore(int scoreChange) {
 		score += scoreChange;
 	}
 		
