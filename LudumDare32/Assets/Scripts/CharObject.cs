@@ -63,6 +63,10 @@ public class CharObject : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		bool playVocal = false; 
+		if (NPCMode != NPCModes.DEAD && Random.value > 0.999) {
+			playVocal = true;
+		}
 	
 		if (DelayTimer > 0)
 			DelayTimer -= Time.deltaTime;
@@ -90,8 +94,9 @@ public class CharObject : MonoBehaviour {
 				
 				if (Input.GetButtonDown("Fire1"))
 				{
-					if (CharAnimator != null)
+					if (CharAnimator != null) {
 						CharAnimator.SetTrigger("bonk");
+					}
 				}
 				if (Input.GetButtonDown("Fire2"))
 				{
@@ -100,6 +105,10 @@ public class CharObject : MonoBehaviour {
 				}
 				
 				LookTarget = null;
+
+				if (playVocal) {
+					PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.PriestSpeak, this.gameObject);
+				}
 			break;
 			
 			case NPCModes.WANDER:
@@ -117,7 +126,11 @@ public class CharObject : MonoBehaviour {
 				InputVector.z = Mathf.PerlinNoise(0, Time.time/5 + zSeed) * 2 - 1;
 				
 				LookTarget = null;
-				
+
+				if (playVocal) {
+					PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.VillagerSpeak, this.gameObject);
+				}
+			
 			break;
 			
 			case NPCModes.WAIT:
@@ -179,6 +192,10 @@ public class CharObject : MonoBehaviour {
 							}
 						}
 					}
+				}
+
+				if (playVocal) {
+					PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.VillagerSpeak, this.gameObject);
 				}
 			break;
 	
@@ -262,6 +279,10 @@ public class CharObject : MonoBehaviour {
 							return;
 						}
 					}
+
+				if (playVocal) {
+					PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.VillagerSpeak, this.gameObject);
+				}
 			break;
 			
 			case NPCModes.DEMON:
@@ -299,6 +320,10 @@ public class CharObject : MonoBehaviour {
 					InputVector = Vector3.zero;
 				
 				InputVector.Normalize();
+
+				if (playVocal) {
+					PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.DemonSpeak, this.gameObject);
+				}
 			break;
 			
 			default:
@@ -350,7 +375,7 @@ public class CharObject : MonoBehaviour {
 //			AddImpact(transform.forward * -1);
 		
 		if (CharAnimator != null)
-			CharAnimator.SetBool("walk", (InputVector.magnitude > 0));
+			CharAnimator.SetBool ("walk", (InputVector.magnitude > 0));
 			
 		if (MyHealthBar.currHealth <= 0)
 		{
@@ -423,8 +448,13 @@ public class CharObject : MonoBehaviour {
 	
 	public void GetBonked(NPCModes bonker)
 	{
-		if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON)
+		if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON) {
 			NPCMode = NPCModes.FOLLOW;
+			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Convert, this.gameObject);
+		}
+
+		PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Bonk, this.gameObject); 
+
 	}
 	
 	public void GetPunched(NPCModes bonker)
@@ -440,12 +470,14 @@ public class CharObject : MonoBehaviour {
 				GameObject temp = (GameObject)Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation);
 				temp.GetComponent<ProjectileMover>().IsFire = false;
 				temp.GetComponent<ProjectileMover>().FromChar = this;
+				PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Whoosh, this.gameObject);
 		}
 		else if (NPCMode == NPCModes.DEMON)
 		{
 				GameObject temp = (GameObject)Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation);
 				temp.GetComponent<ProjectileMover>().IsFire = true;
 				temp.GetComponent<ProjectileMover>().FromChar = this;
+				PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Whoosh, this.gameObject); 
 		}
 		else
 		{
@@ -466,10 +498,13 @@ public class CharObject : MonoBehaviour {
 					NPCMode = NPCModes.WAIT;
 				}
 			}
+
 			else
 			{
 				MyHealthBar.increaseHealth(25);
 			}
+
+			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.HolyWater, this.gameObject);
 		}
 			
 		if (isFire)
@@ -477,7 +512,7 @@ public class CharObject : MonoBehaviour {
 			AddImpact(projectile.transform.forward/2);
 			MyHealthBar.decreaseHealth(35);
 		}
-		
+
 		Destroy(projectile);
 		
 	}

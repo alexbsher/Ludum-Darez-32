@@ -15,8 +15,10 @@ public class PlaySound : MonoBehaviour
 	private AudioClip[] priestSpeakSounds;
 	private AudioClip[] stepSounds;
 	private AudioClip[] villagerSpeakSounds;
+	private AudioClip[] reaperSounds;
 	private AudioClip[] punchSounds;
 	private AudioClip[] whooshSounds;
+	private AudioClip[] fireSounds; 
 	public static PlaySound Instance;
 	private SoundType currentSoundType;
 	private AudioSource AS;
@@ -39,6 +41,8 @@ public class PlaySound : MonoBehaviour
 		PriestSpeak,
 		VillagerSpeak,
 		DemonSpeak,
+		ReaperSpeak,
+		Fire,
 		Whoosh
 	}
 	;
@@ -64,7 +68,7 @@ public class PlaySound : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		locationAudioSources = new HashSet<AudioSource>();		
+		locationAudioSources = new HashSet<AudioSource> ();		
 		globalAudioSource.spatialBlend = 1.0f; //set to 3d
 		AS = gameObject.AddComponent<AudioSource> ();
 
@@ -75,15 +79,24 @@ public class PlaySound : MonoBehaviour
 		priestSpeakSounds.SetValue (Resources.Load ("Sound/PriestSpeak") as AudioClip, 0); 
 
 		// Villager Sounds
-		villagerSpeakSounds = new AudioClip[6];
+		villagerSpeakSounds = new AudioClip[9];
 		villagerSpeakSounds.SetValue (Resources.Load ("Sound/VillagerSounds/Female1") as AudioClip, 0); 
 		villagerSpeakSounds.SetValue (Resources.Load ("Sound/VillagerSounds/Female2") as AudioClip, 1); 
 		villagerSpeakSounds.SetValue (Resources.Load ("Sound/VillagerSounds/Female3") as AudioClip, 2); 
 		villagerSpeakSounds.SetValue (Resources.Load ("Sound/VillagerSounds/Female4") as AudioClip, 3); 
 		villagerSpeakSounds.SetValue (Resources.Load ("Sound/VillagerSounds/Female5") as AudioClip, 4); 
 		villagerSpeakSounds.SetValue (Resources.Load ("Sound/VillagerSounds/Female6") as AudioClip, 5); 
+		villagerSpeakSounds.SetValue (Resources.Load ("Sound/VillagerSounds/Male2") as AudioClip, 6); 
+		villagerSpeakSounds.SetValue (Resources.Load ("Sound/VillagerSounds/Male3") as AudioClip, 7); 
+		villagerSpeakSounds.SetValue (Resources.Load ("Sound/VillagerSounds/Male4") as AudioClip, 8);
 
-		// Demon Sounds
+		// Reaper Sounds
+		reaperSounds = new AudioClip[3]; 
+		reaperSounds.SetValue (Resources.Load ("Sound/ReaperSounds/Reaper1") as AudioClip, 0); 
+		reaperSounds.SetValue (Resources.Load ("Sound/ReaperSounds/Reaper2") as AudioClip, 1); 
+		reaperSounds.SetValue (Resources.Load ("Sound/ReaperSounds/Reaper3") as AudioClip, 2);
+
+//		// Demon Sounds
 		demonSpeakSounds = new AudioClip[6];
 		demonSpeakSounds.SetValue (Resources.Load ("Sound/DemonSounds/Demon1") as AudioClip, 0); 
 		demonSpeakSounds.SetValue (Resources.Load ("Sound/DemonSounds/Demon2") as AudioClip, 1); 
@@ -91,19 +104,32 @@ public class PlaySound : MonoBehaviour
 		demonSpeakSounds.SetValue (Resources.Load ("Sound/DemonSounds/Demon4") as AudioClip, 3); 
 		demonSpeakSounds.SetValue (Resources.Load ("Sound/DemonSounds/Demon5") as AudioClip, 4); 
 		demonSpeakSounds.SetValue (Resources.Load ("Sound/DemonSounds/Demon6") as AudioClip, 5); 
-
-		//Glass Sounds
+//
+//		//Glass Sounds
 		glassSounds = new AudioClip[10];
-		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass1") as AudioClip, 0); 
-		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass2") as AudioClip, 1);
-		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass3") as AudioClip, 2);
-		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass4") as AudioClip, 3);
-		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass5") as AudioClip, 4);
-		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass6") as AudioClip, 5);
-		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass7") as AudioClip, 6);
-		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass8") as AudioClip, 7);
-		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass9") as AudioClip, 8);
-		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass10") as AudioClip, 9);
+//		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass1") as AudioClip, 0); 
+//		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass2") as AudioClip, 1);
+//		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass3") as AudioClip, 2);
+//		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass4") as AudioClip, 3);
+//		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass5") as AudioClip, 4);
+//		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass6") as AudioClip, 5);
+//		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass7") as AudioClip, 6);
+//		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass8") as AudioClip, 7);
+//		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass9") as AudioClip, 8);
+//		glassSounds.SetValue (Resources.Load ("Sound/GlassSounds/Glass10") as AudioClip, 9);
+
+		// HolyWater Sounds
+		holyWaterSounds = new AudioClip[6];
+		holyWaterSounds.SetValue (Resources.Load ("Sound/HolyWaterSounds/HolyB") as AudioClip, 0);
+		holyWaterSounds.SetValue (Resources.Load ("Sound/HolyWaterSounds/HolyC") as AudioClip, 1);
+		holyWaterSounds.SetValue (Resources.Load ("Sound/HolyWaterSounds/HolyD") as AudioClip, 2);
+		holyWaterSounds.SetValue (Resources.Load ("Sound/HolyWaterSounds/HolyE") as AudioClip, 3);
+		holyWaterSounds.SetValue (Resources.Load ("Sound/HolyWaterSounds/HolyF") as AudioClip, 4);
+		holyWaterSounds.SetValue (Resources.Load ("Sound/HolyWaterSounds/HolyG") as AudioClip, 5);
+
+		// Fire Sounds
+		fireSounds = new AudioClip[1];
+		fireSounds.SetValue (Resources.Load ("Sound/Environment/Fire") as AudioClip, 0);
 
 		// Punch Sounds
 		punchSounds = new AudioClip[1];
@@ -145,12 +171,14 @@ public class PlaySound : MonoBehaviour
 		m_audioMap.Add (SoundType.Bell, bellSounds);
 		m_audioMap.Add (SoundType.Convert, convertSounds);
 		m_audioMap.Add (SoundType.HolyWater, holyWaterSounds);
+		m_audioMap.Add (SoundType.Fire, fireSounds);
 		m_audioMap.Add (SoundType.Destruction, destructionSounds);
 		m_audioMap.Add (SoundType.Glass, glassSounds);
 
 		m_audioMap.Add (SoundType.DemonMoan, demonMoanSounds);
 		m_audioMap.Add (SoundType.VillagerSpeak, villagerSpeakSounds);
 		m_audioMap.Add (SoundType.DemonSpeak, demonSpeakSounds);
+		m_audioMap.Add (SoundType.ReaperSpeak, reaperSounds);
 		m_audioMap.Add (SoundType.PriestSpeak, priestSpeakSounds);
 
 		m_audioMap.Add (SoundType.Step, stepSounds);
@@ -167,10 +195,11 @@ public class PlaySound : MonoBehaviour
 		}
 
 		if (locationAudioSources.Count != 0) {
-			List<AudioSource> srcs = new List<AudioSource>(); 
+			List<AudioSource> srcs = new List<AudioSource> (); 
 			foreach (AudioSource audioSrc in locationAudioSources) {
-				if (!audioSrc.isPlaying) {
-					srcs.Add(audioSrc);
+				// get rid of nulls and completed sound files
+				if (audioSrc == null || !audioSrc.isPlaying) {
+					srcs.Add (audioSrc);
 				}
 			}
 
@@ -186,7 +215,7 @@ public class PlaySound : MonoBehaviour
 
 
 	// Play one time sound at a static location, no protections against multiple same sounds
-	void playOneTimeSound (SoundType sound, SourceType source, Vector3 location = default(Vector3))
+	public void playOneTimeSound (SoundType sound, SourceType source, Vector3 location = default(Vector3))
 	{
 
 		// Make a 3D audio source at a location 
@@ -206,14 +235,24 @@ public class PlaySound : MonoBehaviour
 
 	// Protections against repeat sounds
 //	void playSound(SoundType sound, SourceType source, Vector3 location = default(Vector3)) {
-	void playSoundOnObject (SoundType sound, GameObject ss)
+	public void playSoundOnObject (SoundType sound, GameObject ss)
 	{
 		AudioClip[] clips = m_audioMap [sound] as AudioClip[];
 		int idx = (int)Mathf.Floor (Random.Range (0.0f, ((float)clips.Length)));
 
 		var audSrc = Instantiate (Resources.Load ("PreFabAudioSource") as GameObject).GetComponent<AudioSource> ();
+		Debug.Log ("AudSrc " + audSrc.ToString ()); 
+
+		switch (sound) {
+		case SoundType.Step:
+			audSrc.volume = 0.05f;
+			break;
+		default:
+			break;
+		}
+
 		audSrc.clip = clips [idx];
-		audSrc.transform.SetParent(ss.transform); 
+		audSrc.transform.SetParent (ss.transform); 
 		audSrc.Play ();
 		locationAudioSources.Add (audSrc);
 	}

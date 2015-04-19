@@ -26,6 +26,15 @@ public class CharAnimationEvents : MonoBehaviour {
 		Debug.Log("DOING SPLASH!");
 		MyCharObj.Splash();
 	}
+
+	public void Swing() {
+		PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Whoosh, this.gameObject);
+	}
+
+	public void Step() {
+		Debug.Log ("Step"); 
+		PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Step, this.gameObject);
+	}
 	
 	public void Pause()
 	{

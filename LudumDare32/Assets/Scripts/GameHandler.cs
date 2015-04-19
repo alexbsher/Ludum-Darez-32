@@ -52,7 +52,7 @@ public class GameHandler : MonoBehaviour {
 
 		if (time - lastSpawnTime > spawnRate) {
 			int spawnIdx = Random.Range(0, spawnPoints.Length);
-			DemonSpawner.Instance.spawnDemon(spawnPoints[spawnIdx]);
+//			DemonSpawner.Instance.spawnDemon(spawnPoints[spawnIdx]);
 			lastSpawnTime = time;
 		}
 
