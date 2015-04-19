@@ -18,6 +18,10 @@ public class CharObject : MonoBehaviour {
 	public NavMeshAgent MyNavGhost = null;
 	public GameObject HitParticle = null;
 	public Animator CharAnimator = null;
+	
+	private delegate void DelayFunction();
+	private DelayFunction delayFunction;
+	private float DelayTimer;
 
 	float xSeed;
 	float zSeed;
@@ -37,6 +41,7 @@ public class CharObject : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
+		delayFunction = DoNothing;
 		CharHandler.Instance.RegisterChar(this);
 	
 		LookVector = transform.forward;
@@ -51,6 +56,15 @@ public class CharObject : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+	
+		if (DelayTimer > 0)
+			DelayTimer -= Time.deltaTime;
+		else
+		{
+			DelayTimer = -1;
+			delayFunction();
+			delayFunction = DoNothing;
+		}
 	
 		GetComponent<Rigidbody>().velocity = Vector3.zero;
 		SpeedMultiplier = 1;
@@ -224,13 +238,14 @@ public class CharObject : MonoBehaviour {
 		if (LookTarget != null)
 			LookVector = Vector3.Slerp (LookVector, (LookTarget.position - transform.position).normalized, 0.1f);
 		else {
-			if (MovementVector.magnitude > 0)
 				LookVector = Vector3.Slerp (LookVector, InputVector, 0.1f);
 		}
 		
 		LookVector.y = 0;
+		LookVector.Normalize();
 
-		transform.localRotation = Quaternion.LookRotation (LookVector, Vector3.up);
+		if (LookVector.magnitude > 0)
+			transform.localRotation = Quaternion.LookRotation (LookVector, Vector3.up);
 		
 //		if (Input.GetKeyDown(KeyCode.Space))
 //			AddImpact(transform.forward * -1);
@@ -238,22 +253,29 @@ public class CharObject : MonoBehaviour {
 		if (NPCMode == NPCModes.PLAYER)
 		{
 			if (Input.GetButtonDown("Fire1"))
-				Bonk ();
+			{
+				delayFunction = Bonk;
+				DelayTimer = 0.5f;
+				if (CharAnimator != null)
+					CharAnimator.SetTrigger("bonk");
+			}
 			if (Input.GetButtonDown("Fire2"))
-				Splash ();
+			{
+				delayFunction = Splash;
+				DelayTimer = 0.5f;
+				if (CharAnimator != null)
+					CharAnimator.SetTrigger("punch");
+			}
 		}
 		
 		if (CharAnimator != null)
-			CharAnimator.SetFloat("walkSpeed", InputVector.magnitude * BaseSpeed * SpeedMultiplier);
+			CharAnimator.SetBool("walk", (InputVector.magnitude > 0));
 		
 	}
 	
 	
 	public void Bonk()
 	{
-		if (CharAnimator != null)
-			CharAnimator.SetTrigger("bonk");
-			
 		RaycastHit[] hits = Physics.SphereCastAll(transform.position,0.5f,transform.forward);
 		
 		if (hits != null && hits.Length > 0)
@@ -290,6 +312,11 @@ public class CharObject : MonoBehaviour {
 		if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON)
 			NPCMode = NPCModes.WAIT;
 	}
+	
+	public void DoNothing()
+	{
+	
+	}
 
 	public void AddImpact(Vector3 forceVector)
 	{
@@ -307,7 +334,6 @@ public class CharObject : MonoBehaviour {
 		else {
 			Destroy(collision.gameObject);
 			GetSplashed();
-		
 		}
 		temp.y = 0;
 		MovementVector = temp;
