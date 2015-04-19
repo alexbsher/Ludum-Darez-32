@@ -297,9 +297,11 @@ public class CharObject : MonoBehaviour {
 			{		 
 				temp += point.normal*Mathf.Max(0,Vector3.Dot(temp.normalized,-point.normal))*temp.magnitude;
 			}
-		else 
+		else {
+			Destroy(collision.gameObject);
 			GetSplashed();
-			
+		
+		}
 		temp.y = 0;
 		MovementVector = temp;
 	}
