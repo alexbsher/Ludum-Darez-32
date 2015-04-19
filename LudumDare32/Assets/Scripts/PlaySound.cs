@@ -20,6 +20,7 @@ public class PlaySound : MonoBehaviour {
 	public static PlaySound Instance;
 
 	private SoundType currentSoundType; 
+	public AudioSource audioSource; 
 	
 	public enum SoundType {
 		Bonk, Bell, Convert, Destruction, DemonMoan, Glass, HolyWater, Punch, Step, PriestSpeak, VillagerSpeak, DemonSpeak, Whoosh
@@ -41,7 +42,6 @@ public class PlaySound : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		
 		m_sourceMap.Add (SourceType.CameraFrame, cameraFrame);
 		m_sourceMap.Add (SourceType.PlayerFrame, playerFrame);
 
@@ -85,11 +85,19 @@ public class PlaySound : MonoBehaviour {
 		AudioClip[] clips = m_audioMap[sound];
 		int idx = (int) Mathf.Floor(Random.Range (0.0f, ((float) clips.Length))); 
 
-//		if (currentSoundType == sound && Instance
-		AudioSource.PlayClipAtPoint(clips[idx], m_sourceMap[source].position);
+		// dont play again if we just played a sound of this type and are currently playing
+		if (currentSoundType == sound && audioSource.isPlaying) {
+//			audioSource.PlayClipAtPoint (clips [idx], m_sourceMap [source].position);
+		} else {
+			audioSource.transform.position = m_sourceMap[source].transform.position;
+			audioSource.clip = clips[idx];
+			audioSource.Play();
+//				PlayClipAtPoint (clips [idx], m_sourceMap [source].position);
 
-		// only play one of a type at at time
-		currentSoundType = sound; 
+			// only play one of a type at at time
+			currentSoundType = sound;
+		}
+		 
 	}
 	
 }
