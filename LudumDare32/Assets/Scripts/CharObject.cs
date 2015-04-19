@@ -254,15 +254,11 @@ public class CharObject : MonoBehaviour {
 		{
 			if (Input.GetButtonDown("Fire1"))
 			{
-				delayFunction = Bonk;
-				DelayTimer = 0.5f;
 				if (CharAnimator != null)
 					CharAnimator.SetTrigger("bonk");
 			}
 			if (Input.GetButtonDown("Fire2"))
 			{
-				delayFunction = Splash;
-				DelayTimer = 0.5f;
 				if (CharAnimator != null)
 					CharAnimator.SetTrigger("punch");
 			}
