@@ -386,6 +386,9 @@ public class CharObject : MonoBehaviour {
 			
 		if (MyHealthBar.currHealth <= 0)
 		{
+			if (NPCMode == NPCModes.DEMON) {
+				GameHandler.Instance.changeScore(50); 
+			}
 			NPCMode = NPCModes.DEAD;
 			if (Random.value > 0.5f)
 			{
@@ -484,8 +487,13 @@ public class CharObject : MonoBehaviour {
 	public void GetBonked(NPCModes bonker)
 	{
 		if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON) {
+			if (NPCMode != NPCModes.FOLLOW) {
+				GameHandler.Instance.changeScore(25); 
+			}
+			
 			NPCMode = NPCModes.FOLLOW;
 			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Convert, this.gameObject);
+
 		}
 
 		PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Bonk, this.gameObject); 
@@ -548,6 +556,7 @@ public class CharObject : MonoBehaviour {
 			else
 			{
 				MyHealthBar.increaseHealth(25);
+				GameHandler.Instance.changeScore(5); 
 			}
 
 			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.HolyWater, this.gameObject);

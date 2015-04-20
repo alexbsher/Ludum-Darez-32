@@ -241,11 +241,15 @@ public class PlaySound : MonoBehaviour
 		int idx = (int)Mathf.Floor (Random.Range (0.0f, ((float)clips.Length)));
 
 		var audSrc = Instantiate (Resources.Load ("PreFabAudioSource") as GameObject).GetComponent<AudioSource> ();
+		audSrc.spatialBlend = 1.0f; 
 		Debug.Log ("AudSrc " + audSrc.ToString ()); 
 
 		switch (sound) {
 		case SoundType.Step:
 			audSrc.volume = 0.05f;
+			break;
+		case SoundType.VillagerSpeak:
+			audSrc.volume = 0.8f;
 			break;
 		default:
 			break;

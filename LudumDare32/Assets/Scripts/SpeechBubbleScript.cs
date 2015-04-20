@@ -8,6 +8,8 @@ public class SpeechBubbleScript : MonoBehaviour {
 	public Text speechBubbleText; 
 	public RawImage speechBubbleImage;
 
+	private float score; 
+
 	// Use this for initialization
 	void Start () {
 		speechBubbleText.text = "OH HEY THERE BABY";
@@ -16,7 +18,9 @@ public class SpeechBubbleScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		score = Mathf.Floor(GameHandler.Instance.getScore ()); 
 		speechBubbleCanvas.transform.LookAt (Camera.main.transform.localPosition);
+		speechBubbleText.text = score.ToString ();
 //		speechBubbleCanvas.enabled = false; 
 	}
 
