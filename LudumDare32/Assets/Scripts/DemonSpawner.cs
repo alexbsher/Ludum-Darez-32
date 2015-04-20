@@ -13,6 +13,11 @@ public class DemonSpawner : MonoBehaviour {
 	void Start () {
 		Instance = this;
 	}
+	
+	void Update()
+	{
+		spawnDelay -= Time.deltaTime;
+	}
 
 	public void spawnDemon(Transform spawnPoint) {
 		Instantiate (demon, spawnPoint.position, spawnPoint.rotation);

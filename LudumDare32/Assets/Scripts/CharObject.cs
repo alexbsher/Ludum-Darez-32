@@ -22,6 +22,7 @@ public class CharObject : MonoBehaviour {
 	public AudioSource audioSource = new AudioSource();
 	public GameObject GibletEffect = null;
 	public GameObject MorphEffect = null;
+	public GameObject SparkleEffect = null;
 	public GameObject DemonPrefab = null;
 	private delegate void DelayFunction();
 	private DelayFunction delayFunction;
@@ -29,6 +30,8 @@ public class CharObject : MonoBehaviour {
 	
 	private bool pauseWalking = false;
 	private bool isConverted = false;
+	
+	private float easeRate = 0.75f;
 
 	float xSeed;
 	float zSeed;
@@ -66,7 +69,7 @@ public class CharObject : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		bool playVocal = false; 
-		if (NPCMode != NPCModes.DEAD && Random.value > 0.9999) {
+		if (NPCMode != NPCModes.DEAD && Random.value > 0.9995f) {
 			playVocal = true;
 		}
 	
@@ -359,17 +362,17 @@ public class CharObject : MonoBehaviour {
 		adjustedInputVector.y = 0;
 		adjustedInputVector.Normalize ();
 		
-		MovementSpeed = Mathf.Lerp(MovementSpeed, BaseSpeed * SpeedMultiplier, 0.1f);
+		MovementSpeed = Mathf.Lerp(MovementSpeed, BaseSpeed * SpeedMultiplier, Mathf.Pow (Time.smoothDeltaTime,easeRate));
 		adjustedInputVector *= MovementSpeed;
 
-		MovementVector = Vector3.Lerp(MovementVector, adjustedInputVector, 0.1f);
+		MovementVector = Vector3.Lerp(MovementVector, adjustedInputVector, Mathf.Pow (Time.smoothDeltaTime,easeRate));
 
 		transform.localPosition += MovementVector;
 
 		if (LookTarget != null)
-			LookVector = Vector3.Slerp (LookVector, (LookTarget.position - transform.position).normalized, 0.1f);
+			LookVector = Vector3.Slerp (LookVector, (LookTarget.position - transform.position).normalized, Mathf.Pow (Time.smoothDeltaTime,easeRate));
 		else {
-				LookVector = Vector3.Slerp (LookVector, InputVector, 0.1f);
+			LookVector = Vector3.Slerp (LookVector, InputVector, Mathf.Pow (Time.smoothDeltaTime,easeRate));
 		}
 		
 		LookVector.y = 0;
@@ -427,6 +430,7 @@ public class CharObject : MonoBehaviour {
 		Instantiate(DemonPrefab, transform.position, transform.rotation);
 		CharHandler.Instance.LoseChar(this);
 		CharAnimator.gameObject.SetActive(false);
+		MyHealthBar.gameObject.SetActive(false);
 	}
 	
 	public void PauseWalk()
@@ -494,6 +498,8 @@ public class CharObject : MonoBehaviour {
 				
 			isConverted = true;
 			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Convert, this.gameObject);
+			GameObject sparkle = (GameObject) Instantiate(SparkleEffect, CharAnimator.transform.position, CharAnimator.transform.rotation);
+			sparkle.transform.parent = CharAnimator.transform;
 		}
 			
 		if (NPCMode == NPCModes.DEMON)
@@ -548,6 +554,8 @@ public class CharObject : MonoBehaviour {
 			}
 
 			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.HolyWater, this.gameObject);
+			GameObject sparkle = (GameObject) Instantiate(SparkleEffect, CharAnimator.transform.position, CharAnimator.transform.rotation);
+			sparkle.transform.parent = CharAnimator.transform;
 		}
 			
 		if (isFire)
@@ -573,12 +581,13 @@ public class CharObject : MonoBehaviour {
 	public void OnCollisionEnter(Collision collision)
 	{
 		Vector3 temp = MovementVector;
-		if (collision.gameObject.layer != LayerMask.NameToLayer("Bullets"))
+		if (collision.gameObject.layer != LayerMask.NameToLayer("Bullets") && collision.gameObject.layer != LayerMask.NameToLayer("Pushable"))
 			foreach(ContactPoint point in collision.contacts)
 			{		 
 				temp += point.normal*Mathf.Max(0,Vector3.Dot(temp.normalized,-point.normal))*temp.magnitude;
 			}
 		else {
+			if (collision.gameObject.GetComponent<ProjectileMover>() != null)
 			if (collision.gameObject.GetComponent<ProjectileMover>().FromChar != this)
 				GetSplashed(collision.gameObject);
 		}
