@@ -66,7 +66,7 @@ public class CharObject : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		bool playVocal = false; 
-		if (NPCMode != NPCModes.DEAD && Random.value > 0.999) {
+		if (NPCMode != NPCModes.DEAD && Random.value > 0.9999) {
 			playVocal = true;
 		}
 	
@@ -382,10 +382,11 @@ public class CharObject : MonoBehaviour {
 //			AddImpact(transform.forward * -1);
 		
 		if (CharAnimator != null)
-			CharAnimator.SetBool ("walk", (InputVector.magnitude > 0));
+			CharAnimator.SetBool ("walk", (InputVector.magnitude * SpeedMultiplier > 0));
 			
 		if (MyHealthBar.currHealth <= 0)
 		{
+			MyHealthBar.gameObject.SetActive(false);
 			NPCMode = NPCModes.DEAD;
 			if (Random.value > 0.5f)
 			{
@@ -406,7 +407,7 @@ public class CharObject : MonoBehaviour {
 			{
 				if (GibletEffect != null)
 				{
-					Instantiate(GibletEffect, CharAnimator.transform.position, CharAnimator.transform.rotation);
+					Instantiate(GibletEffect, CharAnimator.transform.position + transform.up*0.125f, CharAnimator.transform.rotation);
 					CharHandler.Instance.LoseChar(this);
 					CharAnimator.gameObject.SetActive(false);
 				}
@@ -483,20 +484,16 @@ public class CharObject : MonoBehaviour {
 	
 	public void GetBonked(NPCModes bonker)
 	{
-		if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON) {
-			NPCMode = NPCModes.FOLLOW;
-			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Convert, this.gameObject);
-		}
-
 		PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Bonk, this.gameObject); 
 
-		if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON && !isConverted && !GameHandler.Instance.getRapture())
+		if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON && !isConverted && !GameHandler.Instance.getRapture() && NPCMode != NPCModes.DEAD)
 		{
 			NPCMode = NPCModes.FOLLOW;
 			if (CharAnimator != null)
 				CharAnimator.SetTrigger("convert");
 				
 			isConverted = true;
+			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Convert, this.gameObject);
 		}
 			
 		if (NPCMode == NPCModes.DEMON)
@@ -535,7 +532,7 @@ public class CharObject : MonoBehaviour {
 	{
 		bool isFire = projectile.GetComponent<ProjectileMover>().IsFire;
 		
-		if (!isFire)
+		if (!isFire && NPCMode != NPCModes.DEAD)
 		{
 			if (!GameHandler.Instance.getRapture())
 			{

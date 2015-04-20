@@ -28,12 +28,12 @@ public class CharAnimationEvents : MonoBehaviour {
 	}
 
 	public void Swing() {
-		PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Whoosh, this.gameObject);
+		PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Whoosh, MyCharObj.gameObject);
 	}
 
 	public void Step() {
 		Debug.Log ("Step"); 
-		PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Step, this.gameObject);
+		PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Step, MyCharObj.gameObject);
 	}
 	
 	public void Pause()

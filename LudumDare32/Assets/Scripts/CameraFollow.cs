@@ -17,7 +17,7 @@ public class CameraFollow : MonoBehaviour {
 		if (FollowObject != null)
 		{
 			transform.position = FollowObject.position + new Vector3(0, cameraDistance, -cameraDistance);
-			transform.eulerAngles = new Vector3(40, 0, 0);
+			transform.eulerAngles = new Vector3(35, 0, 0);
 		}
 	}
 }

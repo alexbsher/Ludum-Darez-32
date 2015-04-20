@@ -7,6 +7,7 @@ public class DemonSpawner : MonoBehaviour {
 	public float spawnDelay;
 	private float timeSinceLast;
 	public static DemonSpawner Instance;
+	public GameObject SpawnEffect;
 
 	// Use this for initialization
 	void Start () {
@@ -15,5 +16,6 @@ public class DemonSpawner : MonoBehaviour {
 
 	public void spawnDemon(Transform spawnPoint) {
 		Instantiate (demon, spawnPoint.position, spawnPoint.rotation);
+		Instantiate(SpawnEffect, spawnPoint.position, spawnPoint.rotation);
 	}
 }
