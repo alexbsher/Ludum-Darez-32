@@ -172,7 +172,7 @@ public class CharObject : MonoBehaviour {
 				}
 				if (target != null)
 				{
-					MyNavGhost.destination = target.transform.position;
+					MyNavGhost.destination = target.transform.position - (GameHandler.Instance.getRapture() ? target.transform.forward * 2 : Vector3.zero);
 					LookTarget = target.transform;
 				}
 				
@@ -408,7 +408,7 @@ public class CharObject : MonoBehaviour {
 				{
 					Instantiate(GibletEffect, CharAnimator.transform.position, CharAnimator.transform.rotation);
 					CharHandler.Instance.LoseChar(this);
-					Destroy(this.gameObject);
+					CharAnimator.gameObject.SetActive(false);
 				}
 			}
 		}
@@ -425,7 +425,7 @@ public class CharObject : MonoBehaviour {
 	{
 		Instantiate(DemonPrefab, transform.position, transform.rotation);
 		CharHandler.Instance.LoseChar(this);
-		Destroy(this.gameObject);
+		CharAnimator.gameObject.SetActive(false);
 	}
 	
 	public void PauseWalk()
@@ -470,12 +470,13 @@ public class CharObject : MonoBehaviour {
 			foreach(RaycastHit hit in hits)
 			{
 				if (hit.collider != GetComponent<Collider>())
-					if (hit.distance <= 3)
+					if (hit.distance <= 2)
 						if (hit.collider.gameObject.GetComponent<CharObject>() != null)
-						{
-							hit.collider.gameObject.GetComponent<CharObject>().AddImpact(transform.forward/2);
-							hit.collider.gameObject.GetComponent<CharObject>().GetPunched(NPCMode);
-						}
+							if (hit.collider.gameObject.GetComponent<CharObject>().NPCMode == NPCModes.DEMON)
+							{
+								hit.collider.gameObject.GetComponent<CharObject>().AddImpact(transform.forward/2);
+								hit.collider.gameObject.GetComponent<CharObject>().GetPunched(NPCMode);
+							}
 			}
 		}
 	}
@@ -502,10 +503,10 @@ public class CharObject : MonoBehaviour {
 			MyHealthBar.decreaseHealth(35);
 	}
 	
-	public void GetPunched(NPCModes bonker)
+	public void GetPunched(NPCModes puncher)
 	{
-		Debug.Log("IVE BEEN PUNCHED!!");
-		MyHealthBar.decreaseHealth(35);
+			Debug.Log("IVE BEEN PUNCHED!!");
+			MyHealthBar.decreaseHealth(35);
 	}
 	
 	public void Splash()
