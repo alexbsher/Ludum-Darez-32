@@ -33,6 +33,8 @@ public class CharObject : MonoBehaviour {
 	
 	private float easeRate = 0.75f;
 
+	private float timeSinceStart = 0.0f; 
+
 	float xSeed;
 	float zSeed;
 
@@ -68,6 +70,7 @@ public class CharObject : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 		bool playVocal = false; 
 		if (NPCMode != NPCModes.DEAD && Random.value > 0.9995f) {
 			playVocal = true;
@@ -95,6 +98,7 @@ public class CharObject : MonoBehaviour {
 		switch (NPCMode)
 		{
 			case NPCModes.PLAYER:
+				timeSinceStart += Time.deltaTime;
 				InputVector = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical"));
 				
 				if (Input.GetButtonDown("Fire1"))
@@ -114,6 +118,14 @@ public class CharObject : MonoBehaviour {
 				if (playVocal) {
 					PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.PriestSpeak, this.gameObject);
 				}
+				
+				// Update score with time
+
+			if (timeSinceStart > 5.0f) {
+				GameHandler.Instance.changeScore((int)Mathf.Floor(timeSinceStart));
+				timeSinceStart = 0.0f;
+			}
+
 			break;
 			
 			case NPCModes.WANDER:
