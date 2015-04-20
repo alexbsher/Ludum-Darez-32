@@ -80,7 +80,7 @@ public class MusicController : MonoBehaviour {
 		case MusicProgress.COUNTDOWN:
 			if (timeSinceStart > raptureTime) {
 				countdown.Stop ();
-				bell.Play ();				  
+				bell.Play ();
 				_state = MusicProgress.RAPTURE;
 			}
 			break;
