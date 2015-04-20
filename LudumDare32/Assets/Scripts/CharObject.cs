@@ -389,13 +389,13 @@ public class CharObject : MonoBehaviour {
 			
 		if (MyHealthBar.currHealth <= 0)
 		{
-<<<<<<< HEAD
+
+			MyHealthBar.gameObject.SetActive(false);
+
 			if (NPCMode == NPCModes.DEMON) {
 				GameHandler.Instance.changeScore(50); 
 			}
-=======
-			MyHealthBar.gameObject.SetActive(false);
->>>>>>> Built scene with gameplay behavior
+
 			NPCMode = NPCModes.DEAD;
 			if (Random.value > 0.5f)
 			{
@@ -494,24 +494,17 @@ public class CharObject : MonoBehaviour {
 	
 	public void GetBonked(NPCModes bonker)
 	{
-<<<<<<< HEAD
-		if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON) {
-			if (NPCMode != NPCModes.FOLLOW) {
-				GameHandler.Instance.changeScore(25); 
-			}
-			
-			NPCMode = NPCModes.FOLLOW;
-			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Convert, this.gameObject);
-
-		}
-
-=======
->>>>>>> Built scene with gameplay behavior
 		PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Bonk, this.gameObject); 
 
 		if (NPCMode != NPCModes.PLAYER && NPCMode != NPCModes.DEMON && !isConverted && !GameHandler.Instance.getRapture() && NPCMode != NPCModes.DEAD)
 		{
+			if (NPCMode != NPCModes.FOLLOW) {
+				GameHandler.Instance.changeScore(25); 
+			}
+
 			NPCMode = NPCModes.FOLLOW;
+			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Convert, this.gameObject);
+
 			if (CharAnimator != null)
 				CharAnimator.SetTrigger("convert");
 				
