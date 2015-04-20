@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-﻿using UnityEngine;
-=======
 using UnityEngine;
->>>>>>> Stashed changes
 using System.Collections;
 
 public class MusicController : MonoBehaviour {
@@ -14,13 +10,9 @@ public class MusicController : MonoBehaviour {
 	public AudioSource hellIntro;
 	public AudioSource hellLoop;
 	public AudioSource bell; 
-
-<<<<<<< Updated upstream
-	public float countdownLength;
-=======
+	
 	public float countdownTime;
 	public float resetTime;
->>>>>>> Stashed changes
 	private float raptureTime; 
 
 	float timeSinceStart;
@@ -78,50 +70,27 @@ public class MusicController : MonoBehaviour {
 			}
 			break;
 		case MusicProgress.CHANTS:
-<<<<<<< Updated upstream
-			if (timeSinceStart > (raptureTime - countdownLength)) {
-				monk.Pause (); 
-=======
 			if (timeSinceStart > (raptureTime - countdownTime)) {
 				monk.loop = false;
 				monk.Stop();
->>>>>>> Stashed changes
 				countdown.Play (); 
 				_state = MusicProgress.COUNTDOWN;
 			}
 			break;
 		case MusicProgress.COUNTDOWN:
 
-<<<<<<< Updated upstream
-			if (raptureTime - timeSinceStart < 2) {
-				bell.Play (); 
-			}
-
-			if (timeSinceStart > raptureTime) {
-				bell.Play ();
-				monk.Pause();  
-=======
 			if (timeSinceStart > raptureTime) {
 				countdown.Stop ();
-				bell.Play ();				  
->>>>>>> Stashed changes
+				bell.Play ();
 				_state = MusicProgress.RAPTURE;
 			}
 			break;
 		case MusicProgress.RAPTURE:
-<<<<<<< Updated upstream
-//			bell.Play ();
-			if (!hellIntro.isPlaying) {
-				hellIntro.Play ();
-			}
-//			rapture.Play ();
-=======
 			if (!hellIntro.isPlaying) {
 				ambient.loop = false;
 				ambient.Stop ();
 				hellIntro.Play ();
 			}
->>>>>>> Stashed changes
 
 			if (timeSinceStart > (raptureTime + 11.5f)) {
 				hellIntro.Pause (); 
@@ -133,12 +102,8 @@ public class MusicController : MonoBehaviour {
 				hellLoop.Play ();
 				rapture.Play ();
 			}
-			
-<<<<<<< Updated upstream
-			if (timeSinceStart > raptureTime + 60.0) {
-=======
+
 			if (timeSinceStart > resetTime) {
->>>>>>> Stashed changes
 				hellLoop.Pause ();
 				rapture.Pause (); 
 				timeSinceStart = 0.0f; 
