@@ -19,6 +19,9 @@ public class PlaySound : MonoBehaviour
 	private AudioClip[] punchSounds;
 	private AudioClip[] whooshSounds;
 	private AudioClip[] fireSounds; 
+	private AudioClip[] fireballWhooshSounds;
+	private AudioClip[] fireballImpactSounds; 
+	private AudioClip[] splatSounds;
 	public static PlaySound Instance;
 	private SoundType currentSoundType;
 	private AudioSource AS;
@@ -43,6 +46,9 @@ public class PlaySound : MonoBehaviour
 		DemonSpeak,
 		ReaperSpeak,
 		Fire,
+		FireballWhoosh,
+		FireballImpact,
+		Splat,
 		Whoosh
 	}
 	;
@@ -132,8 +138,9 @@ public class PlaySound : MonoBehaviour
 		fireSounds.SetValue (Resources.Load ("Sound/Environment/Fire") as AudioClip, 0);
 
 		// Punch Sounds
-		punchSounds = new AudioClip[1];
+		punchSounds = new AudioClip[2];
 		punchSounds.SetValue (Resources.Load ("Sound/Punch") as AudioClip, 0);
+		punchSounds.SetValue (Resources.Load ("Sound/Punch2") as AudioClip, 0);
 
 		// Bonk sound
 		bonkSounds = new AudioClip[1];
@@ -164,6 +171,15 @@ public class PlaySound : MonoBehaviour
 		whooshSounds.SetValue (Resources.Load ("Sound/Whoosh2") as AudioClip, 1);
 		whooshSounds.SetValue (Resources.Load ("Sound/Whoosh3") as AudioClip, 2);
 
+		fireballWhooshSounds = new AudioClip[1];
+		fireballWhooshSounds.SetValue (Resources.Load ("Sound/Fireball Whoosh") as AudioClip, 0);
+
+		fireballImpactSounds = new AudioClip[1];
+		fireballImpactSounds.SetValue (Resources.Load ("Sound/Fireball Impact") as AudioClip, 0);
+
+		splatSounds = new AudioClip[1];
+		splatSounds.SetValue (Resources.Load ("Sound/Splat") as AudioClip, 0);
+
 		m_sourceMap.Add (SourceType.CameraFrame, cameraFrame);
 		m_sourceMap.Add (SourceType.PlayerFrame, playerFrame);
 
@@ -174,6 +190,10 @@ public class PlaySound : MonoBehaviour
 		m_audioMap.Add (SoundType.Fire, fireSounds);
 		m_audioMap.Add (SoundType.Destruction, destructionSounds);
 		m_audioMap.Add (SoundType.Glass, glassSounds);
+
+		m_audioMap.Add (SoundType.FireballWhoosh, fireballWhooshSounds);
+		m_audioMap.Add (SoundType.FireballImpact, fireballImpactSounds);
+		m_audioMap.Add (SoundType.Splat, splatSounds);
 
 		m_audioMap.Add (SoundType.DemonMoan, demonMoanSounds);
 		m_audioMap.Add (SoundType.VillagerSpeak, villagerSpeakSounds);

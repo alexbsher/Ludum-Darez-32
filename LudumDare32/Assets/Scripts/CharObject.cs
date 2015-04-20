@@ -428,6 +428,11 @@ public class CharObject : MonoBehaviour {
 			{
 				if (GibletEffect != null)
 				{
+
+					Vector3 vec = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+					// Splat that muthah fuckah until he just goop and regretful memories
+					PlaySound.Instance.playOneTimeSound (PlaySound.SoundType.Splat, PlaySound.SourceType.CameraFrame); 
+
 					Instantiate(GibletEffect, CharAnimator.transform.position + transform.up*0.125f, CharAnimator.transform.rotation);
 					CharHandler.Instance.LoseChar(this);
 					CharAnimator.gameObject.SetActive(false);
@@ -550,7 +555,7 @@ public class CharObject : MonoBehaviour {
 				GameObject temp = (GameObject)Instantiate (projectile, projectileSpawn.position, projectileSpawn.rotation);
 				temp.GetComponent<ProjectileMover>().IsFire = true;
 				temp.GetComponent<ProjectileMover>().FromChar = this;
-				PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Whoosh, this.gameObject); 
+				PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.FireballWhoosh, this.gameObject); 
 		}
 		else
 		{
@@ -587,6 +592,7 @@ public class CharObject : MonoBehaviour {
 		{
 			AddImpact(projectile.transform.forward/2);
 			MyHealthBar.decreaseHealth(35);
+			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.FireballImpact, this.gameObject);
 		}
 
 		Destroy(projectile);

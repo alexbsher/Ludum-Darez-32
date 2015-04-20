@@ -64,7 +64,7 @@ public class MusicController : MonoBehaviour {
 		switch (_state) {
 		case MusicProgress.START:
 
-			if (timeSinceStart > 1) {
+			if (timeSinceStart > 3) {
 				monk.Play (); 
 				_state = MusicProgress.CHANTS;
 			}
