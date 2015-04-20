@@ -257,6 +257,8 @@ public class PlaySound : MonoBehaviour
 
 		audSrc.clip = clips [idx];
 		audSrc.transform.SetParent (ss.transform); 
+		audSrc.maxDistance = 20;
+		audSrc.dopplerLevel = 0;
 		audSrc.Play ();
 		locationAudioSources.Add (audSrc);
 	}
