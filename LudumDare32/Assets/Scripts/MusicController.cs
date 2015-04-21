@@ -65,15 +65,16 @@ public class MusicController : MonoBehaviour {
 		case MusicProgress.START:
 
 			if (timeSinceStart > 3) {
-				monk.Play (); 
+				countdown.Play ();
+//				monk.Play (); 
 				_state = MusicProgress.CHANTS;
 			}
 			break;
 		case MusicProgress.CHANTS:
 			if (timeSinceStart > (raptureTime - countdownTime)) {
 				monk.loop = false;
-				monk.Stop();
-				countdown.Play (); 
+//				monk.Stop();
+//				countdown.Play (); 
 				_state = MusicProgress.COUNTDOWN;
 			}
 			break;
