@@ -31,7 +31,7 @@ public class CharObject : MonoBehaviour {
 	private bool pauseWalking = false;
 	private bool isConverted = false;
 	
-	private float easeRate = 0.75f;
+	private float easeRate = 0.25f;
 
 	private float timeSinceStart = 0.0f; 
 

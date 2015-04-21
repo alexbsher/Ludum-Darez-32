@@ -22,7 +22,7 @@ public class CameraFollow : MonoBehaviour {
 	
 		if (FollowObject != null)
 		{
-			transform.position = Vector3.Slerp(transform.position, FollowObject.position + new Vector3(0, cameraDistance, -cameraDistance), Mathf.Pow(Time.deltaTime, 0.91f));
+			transform.position = Vector3.Slerp(transform.position, FollowObject.position + new Vector3(0, cameraDistance, -cameraDistance), Mathf.Pow(Time.deltaTime, 0.925f));
 			transform.eulerAngles = new Vector3(35, 0, 0);
 		}
 		else
@@ -38,7 +38,7 @@ public class CameraFollow : MonoBehaviour {
 			}
 
 			if (!hasPersonToFollow) {
-				Application.LoadLevel (1);
+				Application.LoadLevel (0);
 			}
 
 		}
