@@ -7,6 +7,8 @@ public class CameraFollow : MonoBehaviour {
 
 	public float cameraDistance = 8;
 
+	private bool hasPersonToFollow = false; 
+
 	// Use this for initialization
 	void Start () {
 	
@@ -25,13 +27,20 @@ public class CameraFollow : MonoBehaviour {
 		}
 		else
 		{
+			hasPersonToFollow = false; 
 			foreach(CharObject c in CharHandler.Instance.GetAllChars())
 			{
 				if ((c.NPCMode != CharObject.NPCModes.DEMON) && (c.NPCMode != CharObject.NPCModes.DEAD))
 				{
 					FollowObject = c.transform;
+					hasPersonToFollow = true; 
 				}
 			}
+
+			if (!hasPersonToFollow) {
+				Application.LoadLevel (1);
+			}
+
 		}
 	}
 }
