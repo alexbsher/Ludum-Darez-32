@@ -13,7 +13,7 @@ public class CharObject : MonoBehaviour {
 	public float fireRate;
 	public GameObject projectile;
 	public Transform projectileSpawn;
-	public float BaseSpeed = 0.1f;
+	public float BaseSpeed = 4f;
 	public Transform LookTarget = null;
 	public NavMeshAgent MyNavGhost = null;
 	public GameObject HitParticle = null;
@@ -222,6 +222,13 @@ public class CharObject : MonoBehaviour {
 	
 			case NPCModes.FLEE:
 			
+				if (GameHandler.Instance.getRapture())
+				{
+					NPCMode = NPCModes.DEAD;
+					StartMorph();
+					return;
+				}
+			
 				target = null;
 				foreach(CharObject c in CharHandler.Instance.GetAllChars())
 				{
@@ -379,7 +386,7 @@ public class CharObject : MonoBehaviour {
 
 		MovementVector = Vector3.Lerp(MovementVector, adjustedInputVector, Mathf.Pow (Time.smoothDeltaTime,easeRate));
 
-		transform.localPosition += MovementVector;
+		transform.localPosition += MovementVector * Time.deltaTime;
 
 		if (LookTarget != null)
 			LookVector = Vector3.Slerp (LookVector, (LookTarget.position - transform.position).normalized, Mathf.Pow (Time.smoothDeltaTime,easeRate));
@@ -428,12 +435,11 @@ public class CharObject : MonoBehaviour {
 			{
 				if (GibletEffect != null)
 				{
+					// Splat that muthah fuckah until he just goop and regretful memories 
 
-					Vector3 vec = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-					// Splat that muthah fuckah until he just goop and regretful memories
-					PlaySound.Instance.playOneTimeSound (PlaySound.SoundType.Splat, PlaySound.SourceType.CameraFrame); 
-
-					Instantiate(GibletEffect, CharAnimator.transform.position + transform.up*0.125f, CharAnimator.transform.rotation);
+					GameObject gibs = (GameObject)Instantiate(GibletEffect, CharAnimator.transform.position + transform.up*0.125f, CharAnimator.transform.rotation);
+					PlaySound.Instance.playSoundOnObject(PlaySound.SoundType.Splat, gibs);
+					
 					CharHandler.Instance.LoseChar(this);
 					CharAnimator.gameObject.SetActive(false);
 				}
@@ -579,7 +585,7 @@ public class CharObject : MonoBehaviour {
 
 			else
 			{
-				MyHealthBar.increaseHealth(25);
+				MyHealthBar.increaseHealth(100);
 				GameHandler.Instance.changeScore(5); 
 			}
 

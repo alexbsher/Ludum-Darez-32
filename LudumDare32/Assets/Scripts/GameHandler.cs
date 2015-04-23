@@ -10,10 +10,10 @@ public class GameHandler : MonoBehaviour {
 	public float spawnRate = 5.0f;
 
 
-	public float raptureTime = 15.0f;
+	public float raptureTime = 30.0f;
 	public static GameHandler Instance;
 
-	public Transform[] spawnPoints = new Transform[4];
+	public Transform[] spawnPoints;
 
 	void Update() {
 

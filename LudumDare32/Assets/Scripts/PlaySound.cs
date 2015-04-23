@@ -235,23 +235,22 @@ public class PlaySound : MonoBehaviour
 
 
 	// Play one time sound at a static location, no protections against multiple same sounds
-	public void playOneTimeSound (SoundType sound, SourceType source, Vector3 location = default(Vector3))
-	{
-
-		// Make a 3D audio source at a location 
-		if (source.Equals (SourceType.CustomFrame)) {
-			AudioSource customSource = new AudioSource ();
-			customSource.transform.position = location;
-			m_sourceMap [source] = customSource.transform;
-		}
-
-		AudioClip[] clips = m_audioMap [sound] as AudioClip[]; 
-		int idx = (int)Mathf.Floor (Random.Range (0.0f, ((float)clips.Length))); 
-
-		globalAudioSource.clip = clips [idx];
-		globalAudioSource.transform.position = m_sourceMap [source].position; 
-		globalAudioSource.Play (); 
-	}
+//	public void playOneTimeSound (SoundType sound, SourceType source, Vector3 location = default(Vector3))
+//	{
+//
+//		// Make a 3D audio source at a location 
+//		if (source.Equals (SourceType.CustomFrame)) {
+//			AudioSource customSource = new AudioSource ();
+//			customSource.transform.position = location;
+//			m_sourceMap [source] = customSource.transform;
+//		}
+//
+//		AudioClip[] clips = m_audioMap [sound] as AudioClip[]; 
+//		int idx = (int)Mathf.Floor (Random.Range (0.0f, ((float)clips.Length))); 
+//
+//		globalAudioSource.clip = clips [idx];
+//		globalAudioSource.Play (); 
+//	}
 
 	// Protections against repeat sounds
 //	void playSound(SoundType sound, SourceType source, Vector3 location = default(Vector3)) {
@@ -271,12 +270,16 @@ public class PlaySound : MonoBehaviour
 		case SoundType.VillagerSpeak:
 			audSrc.volume = 0.8f;
 			break;
+		case SoundType.Convert:
+			audSrc.volume = 0.25f;
+			break;
 		default:
 			break;
 		}
 
 		audSrc.clip = clips [idx];
 		audSrc.transform.SetParent (ss.transform); 
+		audSrc.transform.localPosition = Vector3.zero;
 		audSrc.maxDistance = 20;
 		audSrc.dopplerLevel = 0;
 		audSrc.Play ();
