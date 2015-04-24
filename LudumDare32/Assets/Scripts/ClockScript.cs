@@ -3,9 +3,10 @@ using System;
 
 public class ClockScript : MonoBehaviour {
 	private float clocktimer;
+	private bool didSetTime = false;
 	private const float
 		hoursToDegrees = 1f / 6f,
-		minutesToDegrees = 360f / 180f;
+		minutesToDegrees = 180f/30;
 
 	public Transform hours, minutes;
 
@@ -14,9 +15,16 @@ public class ClockScript : MonoBehaviour {
 	}
 
 	void Update() {
-		clocktimer -= Time.deltaTime;
+		
+		if (!didSetTime && GameHandler.Instance.GameBegin)
+		{
+			didSetTime = true;
+		}
+
+		if (didSetTime)
+			clocktimer -= Time.deltaTime;
 	
-		hours.localRotation = Quaternion.Euler (0f, 0f, 30f + clocktimer * hoursToDegrees);
+		hours.localRotation = Quaternion.Euler (0f, 0f, clocktimer * hoursToDegrees);
 		minutes.localRotation = Quaternion.Euler (0f, 0f, clocktimer * minutesToDegrees);
 	}
 }

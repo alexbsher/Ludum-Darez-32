@@ -9,6 +9,9 @@ public class GameHandler : MonoBehaviour {
 	private float lastSpawnTime = 0;
 	public float spawnRate = 5.0f;
 
+	public bool GameOver = false;
+	public bool GameBegin = false;
+	public bool GameLoaded = false;
 
 	public float raptureTime = 30.0f;
 	public static GameHandler Instance;
@@ -16,6 +19,15 @@ public class GameHandler : MonoBehaviour {
 	public Transform[] spawnPoints;
 
 	void Update() {
+	
+		if (Input.GetButtonDown("Cancel"))
+			Application.Quit();
+	
+		if (GameLoaded)
+			if (Input.GetButtonDown("Fire1"))
+				GameBegin = true;
+		if (GameBegin)
+			time += Time.deltaTime;
 
 		if (isRapture)
 		{
@@ -23,7 +35,6 @@ public class GameHandler : MonoBehaviour {
 				spawnRate -= Time.deltaTime/5;
 		}
 
-		time += Time.deltaTime;
 		if (time > raptureTime) {
 			handleRapture();
 		}
@@ -36,7 +47,11 @@ public class GameHandler : MonoBehaviour {
 	}
 				
 	void Awake () {
-		Instance = this;
+	
+		if (GameHandler.Instance != null)
+			Destroy(this.gameObject);
+		else
+			Instance = this;
 	}
 
 	public void setRapture(bool rapture) {

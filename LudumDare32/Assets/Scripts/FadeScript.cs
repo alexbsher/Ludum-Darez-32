@@ -7,6 +7,9 @@ public class FadeScript : MonoBehaviour {
 	public Text theText2;
 	public Text theText3;
 	public float biblequotetime;
+	public Camera MyCamera;
+	
+	AsyncOperation SceneLoading;
 
 	void Start() 
 	{
@@ -25,20 +28,32 @@ public class FadeScript : MonoBehaviour {
 		theText.text = quotes [quoteint];
 		theText2.text = quotestwo [quoteint];
 		//theText.text = quotes(quoteint);
+		
+		SceneLoading = Application.LoadLevelAdditiveAsync("Level01");
 	}
 
 	void Update() 
 	{
-		if(Input.anyKey){ Application.LoadLevel (1);}
 		biblequotetime += Time.deltaTime;
-		theText.color = Color.Lerp (Color.black, Color.white, .1f * Time.time);
-
-		if (biblequotetime > 5) {
-			theText2.color = Color.Lerp (Color.black, Color.red, .2f * (Time.time - 5));
-			theText3.color = Color.Lerp (Color.black, Color.red, .2f * (Time.time - 5));
+		
+		if (biblequotetime < 5)
+			theText.color = Color.Lerp (theText.color, Color.white, Mathf.Pow(Time.deltaTime, 0.9f));
+		else if (biblequotetime < 9) {
+			theText2.color = Color.Lerp (theText2.color, Color.red, Mathf.Pow(Time.deltaTime, 0.9f));
+			theText3.color = Color.Lerp (theText3.color, Color.red, Mathf.Pow(Time.deltaTime, 0.9f));
 		}
-		if (biblequotetime > 9) {
-			Application.LoadLevel (1);
+		else {
+			theText.color = Color.Lerp (theText.color, Color.black, Mathf.Pow(Time.deltaTime, 0.9f));
+			theText2.color = Color.Lerp (theText2.color, Color.black, Mathf.Pow(Time.deltaTime, 0.9f));
+			theText3.color = Color.Lerp (theText3.color, Color.black, Mathf.Pow(Time.deltaTime, 0.9f));
+			
+			if (theText.color.r <= 0.01f)
+				if (SceneLoading.isDone)
+				{
+					Destroy(MyCamera.gameObject);
+					Destroy(gameObject);
+					GameHandler.Instance.GameLoaded = true;
+				}
 		}
 	}
 }

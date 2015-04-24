@@ -70,6 +70,9 @@ public class CharObject : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
+		if (!GameHandler.Instance.GameBegin)
+			return;
 
 		bool playVocal = false; 
 		if (NPCMode != NPCModes.DEAD && Random.value > 0.9995f) {

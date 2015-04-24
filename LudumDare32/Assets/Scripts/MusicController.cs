@@ -18,6 +18,7 @@ public class MusicController : MonoBehaviour {
 	float timeSinceStart;
 
 	public enum MusicProgress {
+		WAIT,
 		START,
 		CHANTS,
 		COUNTDOWN,
@@ -41,7 +42,7 @@ public class MusicController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		_state = MusicProgress.START;
+		_state = MusicProgress.WAIT;
 		timeSinceStart = 0.0f; 
 		raptureTime = GameHandler.Instance.raptureTime;
 
@@ -52,14 +53,30 @@ public class MusicController : MonoBehaviour {
 		bell.clip = Resources.Load (bellString) as AudioClip; 
 		hellIntro.clip = Resources.Load(hellIntroString) as AudioClip;
 		hellLoop.clip = Resources.Load(hellLoopString) as AudioClip;
-
-		ambient.Play ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		timeSinceStart += Time.deltaTime;
-		Debug.Log("State: " + _state.ToString());
+		
+		if (GameHandler.Instance.GameLoaded)
+		{
+			if (!ambient.isPlaying)
+			{
+				ambient.Play();
+				ambient.volume = 0;
+			}
+			ambient.volume = Mathf.Lerp(ambient.volume, 0.25f, Mathf.Pow(Time.deltaTime, 0.9f));
+		}
+	
+		if (_state == MusicProgress.WAIT)
+		{
+			if (GameHandler.Instance.GameBegin)
+				_state = MusicProgress.START;
+		}
+		else
+		{
+			timeSinceStart += Time.deltaTime;
+		}
 
 		switch (_state) {
 		case MusicProgress.START:
