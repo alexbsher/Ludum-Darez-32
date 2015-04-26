@@ -83,7 +83,7 @@ public class CharObject : MonoBehaviour {
 
 		bool playVocal = false; 
 		if (NPCMode != NPCModes.DEAD && Random.value > 0.9995f) {
-			Speak("Shit to Say");
+			Speak();
 		}
 
 		if (isSpeaking && Time.time - startSpeechTime > 2.0f) {
@@ -550,7 +550,8 @@ public class CharObject : MonoBehaviour {
 				
 			isConverted = true;
 			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Convert, this.gameObject);
-			Speak("Fuck Yeah Jesus!");
+			if (Random.value > 0.75)
+    			Speak(SpeechBubbleText.SpeechType.CONVERSION);
 			GameObject sparkle = (GameObject) Instantiate(SparkleEffect, CharAnimator.transform.position, CharAnimator.transform.rotation);
 			sparkle.transform.parent = CharAnimator.transform;
 		}
@@ -650,14 +651,25 @@ public class CharObject : MonoBehaviour {
 		MovementVector = temp;
 	}
 
-	public void Speak(string shitToSay) {
-
+	public void Speak(SpeechBubbleText.SpeechType speechType = SpeechBubbleText.SpeechType.RANDOM) {
+		string shitToSay = "";
 		if (NPCMode == NPCModes.PLAYER) {
             PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.PriestSpeak, this.gameObject);
 		} else if (NPCMode == NPCModes.DEMON) {
 			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.DemonSpeak, this.gameObject);
 		} else if (NPCMode != NPCModes.DEAD) {
 			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.VillagerSpeak, this.gameObject);
+			if (NPCMode == NPCModes.ATTACK) {
+				shitToSay = SpeechBubbleText.Instance.getRandomText(SpeechBubbleText.SpeechType.ATTACK);
+			} else if (NPCMode == NPCModes.FLEE) {
+				shitToSay = SpeechBubbleText.Instance.getRandomText(SpeechBubbleText.SpeechType.FLEE);
+			} else {
+				shitToSay = SpeechBubbleText.Instance.getRandomText(SpeechBubbleText.SpeechType.RANDOM);
+			}
+		}
+
+		if (speechType == SpeechBubbleText.SpeechType.CONVERSION) {
+			shitToSay = SpeechBubbleText.Instance.getRandomText(speechType);
 		}
 
 		if (isSpeaking) {

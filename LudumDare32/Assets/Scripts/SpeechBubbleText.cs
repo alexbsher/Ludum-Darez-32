@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class SpeechBubbleText : MonoBehaviour {
 
-	public static ArrayList conversionText;
-	public static ArrayList fleeText;
-	public static ArrayList randomText;
-	public static ArrayList attackText;
+	public static ArrayList conversionText = new ArrayList();
+	public static ArrayList fleeText = new ArrayList();
+	public static ArrayList randomText = new ArrayList();
+	public static ArrayList attackText = new ArrayList();
 
 	public static SpeechBubbleText Instance;
 
@@ -19,7 +19,11 @@ public class SpeechBubbleText : MonoBehaviour {
 	}
 
 	void Awake() {
-		Instance = this; 
+		if (SpeechBubbleText.Instance != null) {
+			Destroy(this.gameObject);
+		} else {
+			Instance = this;
+		}
 	}
 
 	// Use this for initialization
@@ -59,7 +63,7 @@ public class SpeechBubbleText : MonoBehaviour {
 	}
 
 
-	string getRandomText(SpeechType type) {
+	public string getRandomText(SpeechType type) {
 		ArrayList text; 
 
 		switch (type) {
