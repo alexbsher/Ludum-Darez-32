@@ -654,8 +654,10 @@ public class CharObject : MonoBehaviour {
 	public void Speak(SpeechBubbleText.SpeechType speechType = SpeechBubbleText.SpeechType.RANDOM) {
 		string shitToSay = "";
 		if (NPCMode == NPCModes.PLAYER) {
+			shitToSay = SpeechBubbleText.Instance.getRandomText(SpeechBubbleText.SpeechType.RANDOM);
             PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.PriestSpeak, this.gameObject);
 		} else if (NPCMode == NPCModes.DEMON) {
+			shitToSay = SpeechBubbleText.Instance.getRandomText(SpeechBubbleText.SpeechType.DEMON);
 			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.DemonSpeak, this.gameObject);
 		} else if (NPCMode != NPCModes.DEAD) {
 			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.VillagerSpeak, this.gameObject);

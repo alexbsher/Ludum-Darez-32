@@ -8,6 +8,7 @@ public class SpeechBubbleText : MonoBehaviour {
 	public static ArrayList fleeText = new ArrayList();
 	public static ArrayList randomText = new ArrayList();
 	public static ArrayList attackText = new ArrayList();
+	public static ArrayList demonText = new ArrayList();
 
 	public static SpeechBubbleText Instance;
 
@@ -15,7 +16,8 @@ public class SpeechBubbleText : MonoBehaviour {
 		CONVERSION,
 		FLEE,
 		ATTACK,
-		RANDOM
+		RANDOM,
+		DEMON
 	}
 
 	void Awake() {
@@ -55,6 +57,11 @@ public class SpeechBubbleText : MonoBehaviour {
 		attackText.Add ("DIE HELLSPAWN!");
 		attackText.Add ("Feel the lord's wrath!");
 		attackText.Add ("Bathe in the light \n of the one true god");
+
+		demonText.Add ("I WILL RIP THE BONES FROM YOUR BODY");
+		demonText.Add ("Get in my belly!");
+		demonText.Add ("YOU SHOULD HAVE SINNED MORE");
+
 	}
 	
 	// Update is called once per frame
@@ -78,6 +85,9 @@ public class SpeechBubbleText : MonoBehaviour {
 			break;
 		case SpeechType.RANDOM:
 			text = randomText;
+			break;
+		case SpeechType.DEMON:
+			text = demonText;
 			break;
 		default:
 		    return "Why am I saying this";
