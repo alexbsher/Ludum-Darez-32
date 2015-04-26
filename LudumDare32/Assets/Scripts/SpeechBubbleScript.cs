@@ -9,6 +9,7 @@ public class SpeechBubbleScript : MonoBehaviour {
 	public RawImage speechBubbleImage;
 
 	private float score; 
+	private string textToRender = "Is this set?";
 
 	// Use this for initialization
 	void Start () {
@@ -18,10 +19,8 @@ public class SpeechBubbleScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		score = Mathf.Floor(GameHandler.Instance.getScore ()); 
 		speechBubbleCanvas.transform.LookAt (Camera.main.transform.localPosition);
-		speechBubbleText.text = score.ToString ();
-//		speechBubbleCanvas.enabled = false; 
+		speechBubbleText.text = textToRender;
 	}
 
 	public void hide () {
@@ -29,10 +28,11 @@ public class SpeechBubbleScript : MonoBehaviour {
 	}
 
 	public void show () {
-		speechBubbleCanvas.enabled = false; 
+		speechBubbleCanvas.enabled = true; 
 	}
 
 	public void setText(string text) {
-		speechBubbleText.text = text;
+		Debug.Log ("setting text.");
+		textToRender = text;
 	}
 }

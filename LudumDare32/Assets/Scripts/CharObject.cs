@@ -19,6 +19,7 @@ public class CharObject : MonoBehaviour {
 	public GameObject HitParticle = null;
 	public Animator CharAnimator = null;
 	public HealthBarScript MyHealthBar = null;
+	public SpeechBubbleScript MySpeechBubble = null;
 	public AudioSource audioSource = new AudioSource();
 	public GameObject GibletEffect = null;
 	public GameObject MorphEffect = null;
@@ -30,8 +31,10 @@ public class CharObject : MonoBehaviour {
 	
 	private bool pauseWalking = false;
 	private bool isConverted = false;
-	
+	private bool isSpeaking = false;
+
 	private float easeRate = 0.25f;
+	private float startSpeechTime = 0.0f;
 
 	private float timeSinceStart = 0.0f; 
 
@@ -66,6 +69,10 @@ public class CharObject : MonoBehaviour {
 		
 		if (MyNavGhost != null)
 			MyNavGhost.transform.parent = null;
+
+		if (MySpeechBubble != null) {
+			MySpeechBubble.hide();
+		}
 	}
 	
 	// Update is called once per frame
@@ -76,7 +83,14 @@ public class CharObject : MonoBehaviour {
 
 		bool playVocal = false; 
 		if (NPCMode != NPCModes.DEAD && Random.value > 0.9995f) {
-			playVocal = true;
+			Speak("Shit to Say");
+		}
+
+		if (isSpeaking && Time.time - startSpeechTime > 2.0f) {
+			isSpeaking = false;
+			if (MySpeechBubble != null) {
+  			  MySpeechBubble.hide();
+			}
 		}
 	
 		if (DelayTimer > 0)
@@ -536,6 +550,7 @@ public class CharObject : MonoBehaviour {
 				
 			isConverted = true;
 			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.Convert, this.gameObject);
+			Speak("Fuck Yeah Jesus!");
 			GameObject sparkle = (GameObject) Instantiate(SparkleEffect, CharAnimator.transform.position, CharAnimator.transform.rotation);
 			sparkle.transform.parent = CharAnimator.transform;
 		}
@@ -633,6 +648,30 @@ public class CharObject : MonoBehaviour {
 		}
 		temp.y = 0;
 		MovementVector = temp;
+	}
+
+	public void Speak(string shitToSay) {
+
+		if (NPCMode == NPCModes.PLAYER) {
+            PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.PriestSpeak, this.gameObject);
+		} else if (NPCMode == NPCModes.DEMON) {
+			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.DemonSpeak, this.gameObject);
+		} else if (NPCMode != NPCModes.DEAD) {
+			PlaySound.Instance.playSoundOnObject (PlaySound.SoundType.VillagerSpeak, this.gameObject);
+		}
+
+		if (isSpeaking) {
+			MySpeechBubble.hide ();
+			isSpeaking = false;
+		}
+
+		isSpeaking = true;
+		if (MySpeechBubble != null) {
+    		MySpeechBubble.show ();
+	    	MySpeechBubble.setText(shitToSay);
+		}
+		startSpeechTime = Time.time;
+		isSpeaking = true;
 	}
 
 
